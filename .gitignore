@@ -1,0 +1,7 @@
+*.class
+dist/
+build/
+nbproject/
+.DS_Store
+*.iml
+.idea/
