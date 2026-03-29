@@ -15,17 +15,31 @@ import java.util.ArrayList;
  */
 public class AirportEcoSystem extends Organization{
     
+    // airport holds the single intance of airport
     private static AirportEcoSystem airport;
+    
+    // Holds the list of networks in the AirportEcoSystem
     private ArrayList<Network> networkList;
     
+    // Gets the one airport instance
     public static AirportEcoSystem getInstance(){
         
+        // Checks if airport is null and if it is create one or return existing airport
         if(airport == null){
             airport = new AirportEcoSystem();
         }
         return airport;
     }
     
+    // Creates and adds a new network to the networkList
+    public Network createAndAddNetwork(String name) {
+        
+        Network network = new Network(name);
+        networkList.add(network);
+        return network;
+    }
+    
+    // Gets the list of supported roles for the ecosystem
     @Override
     public ArrayList<Role> getSupportedRole() {
         
@@ -34,10 +48,17 @@ public class AirportEcoSystem extends Organization{
         return roleList;
     }
     
+    // Instantiates the AirportEcoSystem and networkList without a parent
     private AirportEcoSystem() {
         
         super(null);
         networkList = new ArrayList<Network>();
+    }
+    
+    // Gets the list of networks
+    public ArrayList<Network> getNetworkList() {
+        
+        return networkList;
     }
 
 }
