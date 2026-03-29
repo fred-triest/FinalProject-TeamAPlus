@@ -43,5 +43,14 @@ public class EmployeeDirectory {
         }
         return null;
     }
+    
+    // Creates an employee
+    public Employee createEmployee(String name, String email){
+        Employee employee = new Employee();
+        employee.setName(name);
+        employee.setEmail(email);
+        employeeList.add(employee);
+        return employee;
+    } 
         
 }
