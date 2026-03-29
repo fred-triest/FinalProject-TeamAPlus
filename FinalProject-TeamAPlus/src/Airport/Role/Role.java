@@ -46,12 +46,15 @@ public abstract class Role {
     }
 }
     
-    public abstract JPanel createWorkArea(JPanel userProcessContainer, 
+    public JPanel createWorkArea(JPanel userProcessContainer, 
         
         UserAccount account, 
         Organization organization, 
         Enterprise enterprise, 
-        AirportEcoSystem airport);
+        AirportEcoSystem airport) {
+        
+        return null;
+    }
     
     @Override
     public String toString() {

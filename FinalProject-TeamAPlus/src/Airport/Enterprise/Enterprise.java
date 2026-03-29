@@ -4,10 +4,41 @@
  */
 package Airport.Enterprise;
 
+import Airport.Organization.Organization;
+import Airport.Organization.OrganizationDirectory;
+
 /**
  *
  * @author fredtriest
  */
-public class Enterprise {
+public abstract class Enterprise extends Organization {
     
+    // Initialize organizationDirectory reference
+    private OrganizationDirectory organizationDirectory;
+
+    public Enterprise (String name) {
+        
+        // Instantiate parent class name and organizationDirectory reference
+        super(name);
+        organizationDirectory = new OrganizationDirectory();
+    }
+    
+    // Get the organizationDirectory reference
+    public OrganizationDirectory getOrganizationDirectory() {
+        
+        return organizationDirectory;
+    }
+    
+    // Set the organizationDirectory reference
+    public void setOrganizationDirectory (OrganizationDirectory organizationDirectory) {
+        
+        this.organizationDirectory = organizationDirectory;
+    }
+    
+    // Use toString() because the default value is not useful so we return name of the enterprise instead
+    @Override
+    public String toString() {
+        
+        return this.getName();
+    }
 }

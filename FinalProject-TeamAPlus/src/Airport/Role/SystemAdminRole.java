@@ -4,10 +4,27 @@
  */
 package Airport.Role;
 
+import Airport.AirportEcoSystem;
+import Airport.Enterprise.Enterprise;
+import Airport.Organization.Organization;
+import Airport.UserAccount.UserAccount;
+import javax.swing.JPanel;
+
 /**
  *
  * @author fredtriest
  */
 public class SystemAdminRole extends Role {
     
+    // Pass all parameters so we know logged in user, the org they belong to, etc.
+    @Override
+    public JPanel createWorkArea(JPanel userProcessContainer,
+            UserAccount userAccount,
+            Organization organization,
+            Enterprise enterprise,
+            AirportEcoSystem airport) {
+            
+            return null;
+    }
+            
 }
