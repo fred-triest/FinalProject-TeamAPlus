@@ -9,6 +9,7 @@ import Airport.Enterprise.Enterprise;
 import Airport.Organization.Organization;
 import Airport.UserAccount.UserAccount;
 import javax.swing.JPanel;
+import ui.SystemAdmin.SystemAdminWorkAreaJPanel;
 
 /**
  *
@@ -24,7 +25,7 @@ public class SystemAdminRole extends Role {
             Enterprise enterprise,
             AirportEcoSystem airport) {
             
-            return null;
+            return new SystemAdminWorkAreaJPanel(userProcessContainer, airport);
     }
             
 }
