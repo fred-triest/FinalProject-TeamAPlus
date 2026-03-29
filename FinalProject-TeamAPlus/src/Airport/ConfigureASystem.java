@@ -17,6 +17,7 @@ import Airport.Organization.RampRefuelingUnit;
 import Airport.Organization.SafetyComplianceBureau;
 import Airport.Role.BaggageHandlerRole;
 import Airport.Role.ComplianceOfficerRole;
+import Airport.Role.EnterpriseAdminRole;
 import Airport.Role.FlightSchedulerRole;
 import Airport.Role.GateCoordinatorRole;
 import Airport.Role.OperationsManagerRole;
@@ -59,20 +60,26 @@ public class ConfigureASystem {
         groundMasterServices.getOrganizationDirectory().addOrganization(new RampRefuelingUnit());
         groundMasterServices.getOrganizationDirectory().addOrganization(new BaggageCabinServicesUnit());
         
-        // Create employees and userAccounts
+        // Create employees and userAccounts (ecoSystem admin, enterprise admins)
         Employee sysAdminEmployee = system.getEmployeeDirectory().createEmployee("sysadmin", "sysadmin@jfk.org");
         UserAccount sysAdminUA = system.getUserAccountDirectory().createUserAccount("sysadmin", "sysadmin", sysAdminEmployee, new SystemAdminRole());
+        Employee jalAdminEmployee = japanAirlines.getEmployeeDirectory().createEmployee("jaladmin", "jaladmin@jal.co.jp");
+        UserAccount jalAdminUA = japanAirlines.getUserAccountDirectory().createUserAccount("jaladmin", "jaladmin", jalAdminEmployee, new EnterpriseAdminRole());
+        Employee nypaAdminEmployee = newYorkPortAuthority.getEmployeeDirectory().createEmployee("nypaadmin", "nypaadmin@nypa.org");
+        UserAccount nypaAdminUA = newYorkPortAuthority.getUserAccountDirectory().createUserAccount("nypaadmin", "nypaadmin", nypaAdminEmployee, new EnterpriseAdminRole());
+        Employee groundAdminEmployee = groundMasterServices.getEmployeeDirectory().createEmployee("groundadmin", "groundadmin@groundmasterservices.com");
+        UserAccount groundAdminUA = groundMasterServices.getUserAccountDirectory().createUserAccount("groundadmin", "groundadmin", groundAdminEmployee,new EnterpriseAdminRole());
         
         // Create FlightOperationsDivision with Flight Scheduler and Operations Manager
         FlightOperationsDivision flightOps = (FlightOperationsDivision) japanAirlines.getOrganizationDirectory().findOrganization("Flight Operations Division");
-        Employee flightSchedulerEmployee = flightOps.getEmployeeDirectory().createEmployee("flightScheduler", "flightscheduler@jal.com");
+        Employee flightSchedulerEmployee = flightOps.getEmployeeDirectory().createEmployee("flightScheduler", "flightscheduler@jal.co.jp");
         UserAccount flightSchedulerUA = flightOps.getUserAccountDirectory().createUserAccount("flightScheduler", "flightScheduler", flightSchedulerEmployee, new FlightSchedulerRole());
-        Employee operationsManagerEmployee = flightOps.getEmployeeDirectory().createEmployee("operationsManager", "operationsmanager@jal.com");
+        Employee operationsManagerEmployee = flightOps.getEmployeeDirectory().createEmployee("operationsManager", "operationsmanager@jal.co.jp");
         UserAccount operationsManagerUA = flightOps.getUserAccountDirectory().createUserAccount("operationsManager", "operationsManager", operationsManagerEmployee, new OperationsManagerRole());
         
         // Create PassengeServicesDepartment with Passenger Services Agent
         PassengerServicesDepartment passengerServices = (PassengerServicesDepartment) japanAirlines.getOrganizationDirectory().findOrganization("Passenger Services Department");
-        Employee passengerAgentEmployee = passengerServices.getEmployeeDirectory().createEmployee("passengerAgent", "passengeragent@jal.com");
+        Employee passengerAgentEmployee = passengerServices.getEmployeeDirectory().createEmployee("passengerAgent", "passengeragent@jal.co.jp");
         UserAccount passengerAgentUA = passengerServices.getUserAccountDirectory().createUserAccount("passengerAgent", "passengerAgent", passengerAgentEmployee, new PassengerServicesAgentRole());
         
         // Create GateTerminalManagementOffice with Gate Coordinator

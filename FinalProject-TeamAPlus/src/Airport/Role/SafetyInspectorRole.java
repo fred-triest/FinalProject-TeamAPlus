@@ -9,6 +9,7 @@ import Airport.Enterprise.Enterprise;
 import Airport.Organization.Organization;
 import Airport.UserAccount.UserAccount;
 import javax.swing.JPanel;
+import ui.SafetyInspector.SafetyInspectorWorkAreaJPanel;
 /**
  *
  * @author fredtriest
@@ -23,7 +24,7 @@ public class SafetyInspectorRole extends Role {
             Enterprise enterprise,
             AirportEcoSystem airport) {
             
-            return null;
+            return new SafetyInspectorWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise, airport);    
     }
             
 }

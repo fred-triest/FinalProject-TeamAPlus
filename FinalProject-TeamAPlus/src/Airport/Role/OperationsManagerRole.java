@@ -9,6 +9,7 @@ import Airport.Enterprise.Enterprise;
 import Airport.Organization.Organization;
 import Airport.UserAccount.UserAccount;
 import javax.swing.JPanel;
+import ui.OperationsManager.OperationsManagerWorkAreaJPanel;
 /**
  *
  * @author fredtriest
@@ -23,7 +24,7 @@ public class OperationsManagerRole extends Role {
             Enterprise enterprise,
             AirportEcoSystem airport) {
             
-            return null;
+            return new OperationsManagerWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise, airport);    
     }
             
 }

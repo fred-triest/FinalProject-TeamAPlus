@@ -9,6 +9,7 @@ import Airport.Enterprise.Enterprise;
 import Airport.Organization.Organization;
 import Airport.UserAccount.UserAccount;
 import javax.swing.JPanel;
+import ui.FlightScheduler.FlightSchedulerWorkAreaJPanel;
 /**
  *
  * @author fredtriest
@@ -23,7 +24,8 @@ public class FlightSchedulerRole extends Role {
             Enterprise enterprise,
             AirportEcoSystem airport) {
             
-            return null;
+            return new FlightSchedulerWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise, airport);    
+
     }
             
 }
