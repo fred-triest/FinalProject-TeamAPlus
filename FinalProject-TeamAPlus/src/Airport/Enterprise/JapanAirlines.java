@@ -23,7 +23,7 @@ public class JapanAirlines extends Enterprise {
     @Override
     public ArrayList<Role> getSupportedRole() {
     ArrayList<Role> roleList = new ArrayList<Role>();
-    roleList.add(new EnterpriseAdminRole());
+    roleList.add(new EnterpriseAdminRole(this));
         return roleList;
     }
 }

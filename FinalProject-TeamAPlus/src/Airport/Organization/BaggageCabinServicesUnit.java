@@ -24,7 +24,7 @@ public class BaggageCabinServicesUnit extends Organization {
     @Override
     public ArrayList<Role> getSupportedRole() {
     ArrayList<Role> roleList = new ArrayList<Role>();
-    roleList.add(new BaggageHandlerRole());
+    roleList.add(new BaggageHandlerRole(this));
         return roleList;
     }
 }

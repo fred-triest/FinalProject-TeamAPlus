@@ -25,8 +25,8 @@ public class FlightOperationsDivision extends Organization {
     @Override
     public ArrayList<Role> getSupportedRole() {
     ArrayList<Role> roleList = new ArrayList<Role>();
-    roleList.add(new FlightSchedulerRole());
-    roleList.add(new OperationsManagerRole());
+    roleList.add(new FlightSchedulerRole(this));
+    roleList.add(new OperationsManagerRole(this));
         return roleList;
     }
 }

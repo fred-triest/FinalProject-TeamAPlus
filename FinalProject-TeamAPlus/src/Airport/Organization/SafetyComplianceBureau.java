@@ -25,8 +25,8 @@ public class SafetyComplianceBureau extends Organization {
     @Override
     public ArrayList<Role> getSupportedRole() {
     ArrayList<Role> roleList = new ArrayList<Role>();
-    roleList.add(new SafetyInspectorRole());
-    roleList.add(new ComplianceOfficerRole());
+    roleList.add(new SafetyInspectorRole(this));
+    roleList.add(new ComplianceOfficerRole(this));
         return roleList;
     }
 }

@@ -16,6 +16,15 @@ import javax.swing.JPanel;
  */
 public abstract class Role {
     
+    private RoleType roleType;
+    private Organization organization;
+    
+    public Role(RoleType roleType, Organization organization) {
+        
+        this.roleType = roleType;
+        this.organization = organization;
+    }
+    
     public enum RoleType{
         
         FlightScheduler("Flight Scheduler"),
@@ -46,19 +55,28 @@ public abstract class Role {
     }
 }
     
-    public JPanel createWorkArea(JPanel userProcessContainer, 
+    public abstract JPanel createWorkArea(JPanel userProcessContainer, 
         
         UserAccount account, 
         Organization organization, 
         Enterprise enterprise, 
-        AirportEcoSystem airport) {
-        
-        return null;
-    }
+        AirportEcoSystem airport);
     
+    public RoleType getRoleType() {
+        
+        return roleType;
+        
+    }
+        
+    public Organization getOrganization() {
+        
+        return organization;
+        
+    }
+        
     @Override
     public String toString() {
         
-        return this.getClass().getName();
+        return this.getRoleType().getValue();
     }
 }
