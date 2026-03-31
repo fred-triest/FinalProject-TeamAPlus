@@ -20,6 +20,7 @@ public class EmployeeDirectory {
         // Instantiate an employeeList
         employeeList = new ArrayList<Employee>();
     }
+   
     
     // Get the employeeList
     public ArrayList<Employee> getEmployeeList() {
