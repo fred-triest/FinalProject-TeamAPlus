@@ -15,6 +15,12 @@ import ui.FlightScheduler.FlightSchedulerWorkAreaJPanel;
  * @author fredtriest
  */
 public class FlightSchedulerRole extends Role {
+    
+    public FlightSchedulerRole(Organization organization) {
+        
+        super(RoleType.FlightScheduler, organization);
+        
+    }
 
     // Pass all parameters so we know logged in user, the org they belong to, etc.
     @Override
@@ -26,6 +32,14 @@ public class FlightSchedulerRole extends Role {
             
             return new FlightSchedulerWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise, airport);    
 
+    }
+    
+    // Display for panel
+    @Override
+    public String toString() {
+        
+        return "Flight Scheduler";
+        
     }
             
 }

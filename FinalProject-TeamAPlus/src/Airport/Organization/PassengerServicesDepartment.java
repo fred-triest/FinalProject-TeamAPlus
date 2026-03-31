@@ -24,7 +24,7 @@ public class PassengerServicesDepartment extends Organization {
     @Override
     public ArrayList<Role> getSupportedRole() {
     ArrayList<Role> roleList = new ArrayList<Role>();
-    roleList.add(new PassengerServicesAgentRole());
+    roleList.add(new PassengerServicesAgentRole(this));
         return roleList;
     }
 }

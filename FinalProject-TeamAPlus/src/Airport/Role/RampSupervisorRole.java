@@ -15,6 +15,12 @@ import ui.RampSupervisor.RampSupervisorWorkAreaJPanel;
  * @author fredtriest
  */
 public class RampSupervisorRole extends Role {
+    
+    public RampSupervisorRole(Organization organization) {
+        
+        super(RoleType.RampSupervisor, organization);
+        
+    }
 
     // Pass all parameters so we know logged in user, the org they belong to, etc.
     @Override
@@ -25,6 +31,14 @@ public class RampSupervisorRole extends Role {
             AirportEcoSystem airport) {
             
             return new RampSupervisorWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise, airport);    
+    }
+    
+    // Display for panel
+    @Override
+    public String toString() {
+        
+        return "Ramp Supervisor";
+        
     }
             
 }

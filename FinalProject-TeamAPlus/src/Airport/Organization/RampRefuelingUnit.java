@@ -24,7 +24,7 @@ public class RampRefuelingUnit extends Organization {
     @Override
     public ArrayList<Role> getSupportedRole() {
     ArrayList<Role> roleList = new ArrayList<Role>();
-    roleList.add(new RampSupervisorRole());
+    roleList.add(new RampSupervisorRole(this));
         return roleList;
     }
 }
