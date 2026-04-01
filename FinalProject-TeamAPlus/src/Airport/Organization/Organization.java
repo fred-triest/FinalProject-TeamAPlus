@@ -5,6 +5,7 @@
 package Airport.Organization;
 
 import Airport.Employee.EmployeeDirectory;
+import Airport.Enterprise.Enterprise;
 import Airport.Role.Role;
 import Airport.UserAccount.UserAccountDirectory;
 import Airport.WorkQueue.WorkQueue;
@@ -23,16 +24,18 @@ public abstract class Organization {
     private EmployeeDirectory employeeDirectory;
     private UserAccountDirectory userAccountDirectory;
     private String organizationId;
+    private Enterprise enterprise;
     private static int counter = 1;
     
     // Instantiating name, refererences, and populating the organizationId format
-    public Organization(String name) {
+    public Organization(String name, Enterprise enterprise) {
         this.name = name;
         workQueue = new WorkQueue();
         employeeDirectory = new EmployeeDirectory();
         userAccountDirectory = new UserAccountDirectory();
         organizationId = "OID-" + String.format("%05d", counter);
         ++counter;
+        this.enterprise = enterprise;
     }
     
     // Get the supported role from the organization (e.g. For FlightOperationsDivision, Flight Scheduler and Operations Manager
@@ -56,22 +59,10 @@ public abstract class Organization {
         return workQueue;
     }
     
-    // Set the WorkQueue reference
-    public void setWorkQueue(WorkQueue workQueue) {
-        
-        this.workQueue = workQueue;
-    }
-    
     // Get the EmployeeDirectory reference
     public EmployeeDirectory getEmployeeDirectory() {
         
         return employeeDirectory;
-    }
-    
-    // Set the EmployeeDirectory reference
-    public void setEmployeeDirectory(EmployeeDirectory employeeDirectory) {
-       
-        this.employeeDirectory = employeeDirectory;
     }
     
     // Get the UserAccountDirectory reference
@@ -80,16 +71,16 @@ public abstract class Organization {
         return userAccountDirectory;
     }
     
-    // Set the UserAccountDirectory reference
-    public void setUserAccountDirectory(UserAccountDirectory userAccountDirectory) {
-        
-        this.userAccountDirectory = userAccountDirectory;
-    }
-    
     // Get the formatted organizationId
     public String getOrganizationId() {
         
         return organizationId;
+    }
+    
+    public Enterprise getEnterprise() {
+        
+        return enterprise;
+        
     }
     
     // Use toString() because the default value is not useful so we return name instead

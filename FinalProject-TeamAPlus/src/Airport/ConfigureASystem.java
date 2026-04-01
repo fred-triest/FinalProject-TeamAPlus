@@ -53,12 +53,12 @@ public class ConfigureASystem {
         GroundMasterServices groundMasterServices = (GroundMasterServices) network.getEnterpriseDirectory().findEnterprise("Ground Master Services");
         
         // Add organizations to respective enterprises
-        japanAirlines.getOrganizationDirectory().addOrganization(new FlightOperationsDivision());
-        japanAirlines.getOrganizationDirectory().addOrganization(new PassengerServicesDepartment());
-        newYorkPortAuthority.getOrganizationDirectory().addOrganization(new GateTerminalManagementOffice());
-        newYorkPortAuthority.getOrganizationDirectory().addOrganization(new SafetyComplianceBureau());
-        groundMasterServices.getOrganizationDirectory().addOrganization(new RampRefuelingUnit());
-        groundMasterServices.getOrganizationDirectory().addOrganization(new BaggageCabinServicesUnit());
+        japanAirlines.getOrganizationDirectory().addOrganization(new FlightOperationsDivision(japanAirlines));
+        japanAirlines.getOrganizationDirectory().addOrganization(new PassengerServicesDepartment(japanAirlines));
+        newYorkPortAuthority.getOrganizationDirectory().addOrganization(new GateTerminalManagementOffice(newYorkPortAuthority));
+        newYorkPortAuthority.getOrganizationDirectory().addOrganization(new SafetyComplianceBureau(newYorkPortAuthority));
+        groundMasterServices.getOrganizationDirectory().addOrganization(new RampRefuelingUnit(groundMasterServices));
+        groundMasterServices.getOrganizationDirectory().addOrganization(new BaggageCabinServicesUnit(groundMasterServices));
         
         // Create employees and userAccounts (ecoSystem admin, enterprise admins)
         Employee sysAdminEmployee = system.getEmployeeDirectory().createEmployee("sysadmin", "sysadmin@jfk.org", "212-555-0147", "Airport Systems Administrator", 28);

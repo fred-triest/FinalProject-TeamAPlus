@@ -4,6 +4,7 @@
  */
 package Airport.Organization;
 
+import Airport.Enterprise.Enterprise;
 import Airport.Role.RampSupervisorRole;
 import Airport.Role.Role;
 import java.util.ArrayList;
@@ -14,10 +15,10 @@ import java.util.ArrayList;
  */
 public class RampRefuelingUnit extends Organization {
     
-    public RampRefuelingUnit() {
+    public RampRefuelingUnit(Enterprise enterprise) {
         
         // Hard coded name for the Ramp Refueling Unit
-        super("Ramp Refueling Unit");
+        super("Ramp Refueling Unit", enterprise);
     }
     
     // Implement from parent class
