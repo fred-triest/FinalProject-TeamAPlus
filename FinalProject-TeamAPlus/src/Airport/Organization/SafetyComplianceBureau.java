@@ -4,6 +4,7 @@
  */
 package Airport.Organization;
 
+import Airport.Enterprise.Enterprise;
 import Airport.Role.SafetyInspectorRole;
 import Airport.Role.ComplianceOfficerRole;
 import Airport.Role.Role;
@@ -15,10 +16,10 @@ import java.util.ArrayList;
  */
 public class SafetyComplianceBureau extends Organization {
     
-    public SafetyComplianceBureau() {
+    public SafetyComplianceBureau(Enterprise enterprise) {
         
         // Hard coded name for the Safety Compliance Bureau
-        super("Safety Compliance Bureau");
+        super("Safety Compliance Bureau", enterprise);
     }
     
     // Implement from parent class

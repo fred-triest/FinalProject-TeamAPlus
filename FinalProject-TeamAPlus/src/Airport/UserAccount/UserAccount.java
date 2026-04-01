@@ -16,11 +16,20 @@ public class UserAccount {
     // Initialize username, password, employee and role references
     private String username;
     private String password;
+    private String userAccountId;
     private Employee employee;
     private Role role;
+    private static int counter = 1;
     
-    public UserAccount() {
-                
+    public UserAccount(String username, String password, Employee employee, Role role) {
+        
+        this.username = username;
+        this.password = password;
+        this.employee = employee;
+        this.role = role;
+        // Instantiate userAccountId based on format
+        userAccountId = "UAID-" + String.format("%05d", counter);
+        ++counter;
     }
     
     public String getUsername() {
@@ -31,11 +40,6 @@ public class UserAccount {
     public void setUsername(String username) {
         
         this.username = username;
-    }
-    
-    public String getPassword() {
-        
-        return password;
     }
     
     public void setPassword(String password) {
@@ -61,6 +65,18 @@ public class UserAccount {
     public void setRole(Role role) {
         
         this.role = role;
+    }
+    
+    public String getUserAccountId() {
+        
+        return userAccountId;
+        
+    }
+    
+    // Checks if username and pw match
+    public boolean validateUser(String username, String password) {
+        
+        return this.username.equals(username) && this.password.equals(password);
     }
      
     // Use toString() because the default value is not useful so we return name instead

@@ -23,12 +23,6 @@ public class UserAccountDirectory {
         userAccountList = new ArrayList<UserAccount>();
     }
     
-    // Adds a userAccount to the userAccountList
-    public void addUserAccount(UserAccount userAccount) {
-        
-        userAccountList.add(userAccount);
-    }
-    
     // Get the userAccountList
     public ArrayList<UserAccount> getUserAccountList() {
         
@@ -49,21 +43,19 @@ public class UserAccountDirectory {
     // Authenticate user by matching username and password
     public UserAccount authenticateUser(String username, String password){
         for (UserAccount ua : userAccountList)
-            if (ua.getUsername().equals(username) && ua.getPassword().equals(password)){
+            if (ua.validateUser(username, password)) {
                 return ua;
             }
+        
         return null;
     }
     
     // Creates a userAccount
     public UserAccount createUserAccount(String username, String password, Employee employee, Role role){
-        UserAccount userAccount = new UserAccount();
-        userAccount.setUsername(username);
-        userAccount.setPassword(password);
-        userAccount.setEmployee(employee);
-        userAccount.setRole(role);
+        UserAccount userAccount = new UserAccount(username, password, employee, role);
         userAccountList.add(userAccount);
         return userAccount;
+        
     } 
     
     // Confirms if a username already exists

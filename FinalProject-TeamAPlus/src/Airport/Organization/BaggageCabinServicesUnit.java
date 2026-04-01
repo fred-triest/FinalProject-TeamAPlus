@@ -4,6 +4,7 @@
  */
 package Airport.Organization;
 
+import Airport.Enterprise.Enterprise;
 import Airport.Role.BaggageHandlerRole;
 import Airport.Role.Role;
 import java.util.ArrayList;
@@ -14,10 +15,10 @@ import java.util.ArrayList;
  */
 public class BaggageCabinServicesUnit extends Organization {
     
-    public BaggageCabinServicesUnit() {
+    public BaggageCabinServicesUnit(Enterprise enterprise) {
         
         // Hard coded name for the Baggage Cabin Services Unit
-        super("Baggage Cabin Services Unit");
+        super("Baggage Cabin Services Unit", enterprise);
     }
     
     // Implement from parent class

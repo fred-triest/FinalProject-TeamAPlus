@@ -19,7 +19,7 @@ public abstract class Enterprise extends Organization {
     public Enterprise (String name) {
         
         // Instantiate parent class name and organizationDirectory reference
-        super(name);
+        super(name, null);
         organizationDirectory = new OrganizationDirectory();
     }
     
@@ -27,12 +27,6 @@ public abstract class Enterprise extends Organization {
     public OrganizationDirectory getOrganizationDirectory() {
         
         return organizationDirectory;
-    }
-    
-    // Set the organizationDirectory reference
-    public void setOrganizationDirectory (OrganizationDirectory organizationDirectory) {
-        
-        this.organizationDirectory = organizationDirectory;
     }
     
     // Use toString() because the default value is not useful so we return name of the enterprise instead
