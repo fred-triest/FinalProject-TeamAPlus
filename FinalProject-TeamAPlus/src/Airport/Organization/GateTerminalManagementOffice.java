@@ -4,6 +4,7 @@
  */
 package Airport.Organization;
 
+import Airport.Enterprise.Enterprise;
 import Airport.Role.GateCoordinatorRole;
 import Airport.Role.Role;
 import java.util.ArrayList;
@@ -14,17 +15,17 @@ import java.util.ArrayList;
  */
 public class GateTerminalManagementOffice extends Organization {
     
-    public GateTerminalManagementOffice() {
+    public GateTerminalManagementOffice(Enterprise enterprise) {
         
         // Hard coded name for the Gate Terminal Management Office
-        super("Gate Terminal Management Office");
+        super("Gate Terminal Management Office", enterprise);
     }
     
     // Implement from parent class
     @Override
     public ArrayList<Role> getSupportedRole() {
     ArrayList<Role> roleList = new ArrayList<Role>();
-    roleList.add(new GateCoordinatorRole());
+    roleList.add(new GateCoordinatorRole(this));
         return roleList;
     }
 }

@@ -15,6 +15,12 @@ import ui.ComplianceOfficer.ComplianceOfficerWorkAreaJPanel;
  * @author fredtriest
  */
 public class ComplianceOfficerRole extends Role {
+    
+    public ComplianceOfficerRole(Organization organization) {
+        
+        super(RoleType.ComplianceOfficer, organization); 
+    
+    }
 
     // Pass all parameters so we know logged in user, the org they belong to, etc.
     @Override
@@ -25,6 +31,13 @@ public class ComplianceOfficerRole extends Role {
             AirportEcoSystem airport) {
             
             return new ComplianceOfficerWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise, airport);    
+    }
+    
+    // Display for panel
+    public String toString() {
+        
+        return "Compliance Officer";
+        
     }
             
 }
