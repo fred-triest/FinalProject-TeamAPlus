@@ -10,10 +10,12 @@ import Airport.Enterprise.JapanAirlines;
 import Airport.Enterprise.NewYorkPortAuthority;
 import Airport.Network.Network;
 import Airport.Organization.BaggageCabinServicesUnit;
+import Airport.Organization.AirlineOperationsCenter;
 import Airport.Organization.FlightOperationsDivision;
 import Airport.Organization.GateTerminalManagementOffice;
 import Airport.Organization.PassengerServicesDepartment;
 import Airport.Organization.RampRefuelingUnit;
+import Airport.Organization.RegulatoryAffairsDivision;
 import Airport.Organization.SafetyComplianceBureau;
 import Airport.Role.BaggageHandlerRole;
 import Airport.Role.ComplianceOfficerRole;
@@ -53,12 +55,14 @@ public class ConfigureASystem {
         GroundMasterServices groundMasterServices = (GroundMasterServices) network.getEnterpriseDirectory().findEnterprise("Ground Master Services");
         
         // Add organizations to respective enterprises
-        japanAirlines.getOrganizationDirectory().addOrganization(new FlightOperationsDivision(japanAirlines));
-        japanAirlines.getOrganizationDirectory().addOrganization(new PassengerServicesDepartment(japanAirlines));
-        newYorkPortAuthority.getOrganizationDirectory().addOrganization(new GateTerminalManagementOffice(newYorkPortAuthority));
-        newYorkPortAuthority.getOrganizationDirectory().addOrganization(new SafetyComplianceBureau(newYorkPortAuthority));
-        groundMasterServices.getOrganizationDirectory().addOrganization(new RampRefuelingUnit(groundMasterServices));
-        groundMasterServices.getOrganizationDirectory().addOrganization(new BaggageCabinServicesUnit(groundMasterServices));
+        japanAirlines.getOrganizationDirectory().addOrganization(new FlightOperationsDivision());
+        japanAirlines.getOrganizationDirectory().addOrganization(new PassengerServicesDepartment());
+        japanAirlines.getOrganizationDirectory().addOrganization(new AirlineOperationsCenter());
+        newYorkPortAuthority.getOrganizationDirectory().addOrganization(new GateTerminalManagementOffice());
+        newYorkPortAuthority.getOrganizationDirectory().addOrganization(new SafetyComplianceBureau());
+        newYorkPortAuthority.getOrganizationDirectory().addOrganization(new RegulatoryAffairsDivision());
+        groundMasterServices.getOrganizationDirectory().addOrganization(new RampRefuelingUnit());
+        groundMasterServices.getOrganizationDirectory().addOrganization(new BaggageCabinServicesUnit());
         
         // Create employees and userAccounts (ecoSystem admin, enterprise admins)
         Employee sysAdminEmployee = system.getEmployeeDirectory().createEmployee("sysadmin", "sysadmin@jfk.org", "212-555-0147", "Airport Systems Administrator", 28);

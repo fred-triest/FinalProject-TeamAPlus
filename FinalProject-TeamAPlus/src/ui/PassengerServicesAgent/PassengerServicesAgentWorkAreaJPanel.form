@@ -16,62 +16,192 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="1344" max="32767" attributes="0"/>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblDisruptionType" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFlightNumber" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAffectedPassengers" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblRequestedAction" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEstimatedCost" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblPassengerDetails" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="cmbDisruptionType" pref="316" max="32767" attributes="0"/>
+                          <Component id="txtFlightNumber" max="32767" attributes="0"/>
+                          <Component id="txtAffectedPassengers" max="32767" attributes="0"/>
+                          <Component id="txtRequestedAction" max="32767" attributes="0"/>
+                          <Component id="txtEstimatedCost" max="32767" attributes="0"/>
+                          <Component id="txtPassengerDetails" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="btnSubmit" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="btnRefresh" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
+              <EmptySpace pref="432" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <EmptySpace min="0" pref="94" max="32767" attributes="0"/>
+              <Component id="scrollPane" min="-2" pref="674" max="-2" attributes="0"/>
+              <EmptySpace pref="432" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
+              <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="846" max="32767" attributes="0"/>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="scrollPane" min="-2" pref="190" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblDisruptionType" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbDisruptionType" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblFlightNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtFlightNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblAffectedPassengers" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtAffectedPassengers" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblRequestedAction" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtRequestedAction" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblEstimatedCost" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtEstimatedCost" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblPassengerDetails" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPassengerDetails" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnSubmit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnRefresh" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="150" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Component class="javax.swing.JLabel" name="lblTitle">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Helvetica Neue" size="36" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Passenger Services Work Area"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="scrollPane">
 
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="357" max="-2" attributes="0"/>
-                  <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="380" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="765" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblTitle">
+        <Component class="javax.swing.JTable" name="tblRequests">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Helvetica Neue" size="36" style="0"/>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="5" rowCount="4">
+                <Column editable="true" title="ID" type="java.lang.Object"/>
+                <Column editable="true" title="Disruption Type" type="java.lang.Object"/>
+                <Column editable="true" title="Flight #" type="java.lang.Object"/>
+                <Column editable="true" title="Passengers" type="java.lang.Object"/>
+                <Column editable="true" title="Status" type="java.lang.Object"/>
+              </Table>
             </Property>
-            <Property name="text" type="java.lang.String" value="Passenger Services Agent Work Area "/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="lblDisruptionType">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Disruption Type:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbDisruptionType">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="Cancellation"/>
+            <StringItem index="1" value="Delay"/>
+            <StringItem index="2" value="Overbooking"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblFlightNumber">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Flight Number:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtFlightNumber">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAffectedPassengers">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Affected Passengers:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtAffectedPassengers">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblRequestedAction">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Requested Action:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtRequestedAction">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblEstimatedCost">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Estimated Cost:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtEstimatedCost">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblPassengerDetails">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Passenger Details:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtPassengerDetails">
+    </Component>
+    <Component class="javax.swing.JButton" name="btnSubmit">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Submit Request"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmitActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRefresh">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Refresh"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

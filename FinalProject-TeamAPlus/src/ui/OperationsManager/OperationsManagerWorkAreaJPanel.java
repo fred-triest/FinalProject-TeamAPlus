@@ -6,13 +6,19 @@ package ui.OperationsManager;
 
 import Airport.AirportEcoSystem;
 import Airport.Enterprise.Enterprise;
+import Airport.Network.Network;
 import Airport.Organization.Organization;
 import Airport.UserAccount.UserAccount;
+import Airport.WorkQueue.OperationalPermitRequest;
+import Airport.WorkQueue.PassengerDisruptionRequest;
+import Airport.WorkQueue.WorkRequest;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author fredtriest
+ * @author cohenpowell
  */
 public class OperationsManagerWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -21,6 +27,7 @@ public class OperationsManagerWorkAreaJPanel extends javax.swing.JPanel {
     Organization organization;
     Enterprise enterprise;
     AirportEcoSystem airport;
+
     /**
      * Creates new form OperationsManagerWorkAreaJPanel
      */
@@ -31,6 +38,47 @@ public class OperationsManagerWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.airport = airport;
+        populateTable();
+    }
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblRequests.getModel();
+        model.setRowCount(0);
+
+        // add requests to table
+        if (organization.getWorkQueue() != null && organization.getWorkQueue().getWorkQueue() != null) {
+            for (WorkRequest request : organization.getWorkQueue().getWorkQueue()) {
+                Object[] row = new Object[4];
+                row[0] = request.getWorkRequestId();
+                if (request instanceof OperationalPermitRequest) {
+                    row[1] = "Operational Permit";
+                    row[2] = ((OperationalPermitRequest) request).getPermitType();
+                } else if (request instanceof PassengerDisruptionRequest) {
+                    row[1] = "Passenger Disruption";
+                    row[2] = ((PassengerDisruptionRequest) request).getDescription();
+                } else {
+                    row[1] = "Unknown";
+                    row[2] = "N/A";
+                }
+                row[3] = request.getStatus();
+                model.addRow(row);
+            }
+        }
+    }
+
+    public Organization findOrganization(String enterpriseName, String orgName) {
+        for (Network network : airport.getNetworkList()) {
+            for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (ent.getName().equals(enterpriseName)) {
+                    for (Organization org : ent.getOrganizationDirectory().getOrganizationList()) {
+                        if (org.getName().equals(orgName)) {
+                            return org;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -42,54 +90,252 @@ public class OperationsManagerWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        tblRequests = new javax.swing.JTable();
+        lblPermitSection = new javax.swing.JLabel();
+        lblPermitType = new javax.swing.JLabel();
+        cmbPermitType = new javax.swing.JComboBox<>();
+        lblRouteDetails = new javax.swing.JLabel();
+        txtRouteDetails = new javax.swing.JTextField();
+        lblJustification = new javax.swing.JLabel();
+        txtJustification = new javax.swing.JTextField();
+        btnSubmitPermit = new javax.swing.JButton();
+        lblDisruptionSection = new javax.swing.JLabel();
+        lblDisruptionAction = new javax.swing.JLabel();
+        cmbDisruptionStatus = new javax.swing.JComboBox<>();
+        lblAuthNotes = new javax.swing.JLabel();
+        txtAuthNotes = new javax.swing.JTextField();
+        btnProcessDisruption = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        lblTitle.setText("Operations Manager Work Area ");
+        lblTitle.setText("Operations Manager Work Area");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(357, 357, 357)
-                .addComponent(lblTitle)
-                .addContainerGap(380, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(lblTitle)
-                .addContainerGap(765, Short.MAX_VALUE))
-        );
+        tblRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Type", "Description", "Status"
+            }
+        ));
+        scrollPane.setViewportView(tblRequests);
+
+        lblPermitSection.setText("Submit Operational Permit");
+
+        lblPermitType.setText("Permit Type:");
+
+        cmbPermitType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New Route", "Off-Hours Operation", "New Aircraft Type" }));
+
+        lblRouteDetails.setText("Route Details:");
+
+        lblJustification.setText("Justification:");
+
+        btnSubmitPermit.setText("Submit Permit");
+        btnSubmitPermit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitPermitActionPerformed(evt);
+            }
+        });
+
+        lblDisruptionSection.setText("Process Passenger Disruption Request");
+
+        lblDisruptionAction.setText("Disruption Status:");
+
+        cmbDisruptionStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Under Review", "Authorized", "Denied" }));
+
+        lblAuthNotes.setText("Authorization Notes:");
+
+        btnProcessDisruption.setText("Process Disruption");
+        btnProcessDisruption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcessDisruptionActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1252, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPermitSection)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPermitType)
+                            .addComponent(lblRouteDetails)
+                            .addComponent(lblJustification))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbPermitType, 0, 316, Short.MAX_VALUE)
+                            .addComponent(txtRouteDetails)
+                            .addComponent(txtJustification)))
+                    .addComponent(btnSubmitPermit)
+                    .addComponent(lblDisruptionSection)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDisruptionAction)
+                            .addComponent(lblAuthNotes))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbDisruptionStatus, 0, 316, Short.MAX_VALUE)
+                            .addComponent(txtAuthNotes)))
+                    .addComponent(btnProcessDisruption)
+                    .addComponent(btnRefresh))
+                .addContainerGap(432, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 846, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(lblTitle)
+                .addGap(18, 18, 18)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(lblPermitSection)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPermitType)
+                    .addComponent(cmbPermitType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRouteDetails)
+                    .addComponent(txtRouteDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblJustification)
+                    .addComponent(txtJustification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(btnSubmitPermit)
+                .addGap(24, 24, 24)
+                .addComponent(lblDisruptionSection)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDisruptionAction)
+                    .addComponent(cmbDisruptionStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAuthNotes)
+                    .addComponent(txtAuthNotes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(btnProcessDisruption)
+                .addGap(24, 24, 24)
+                .addComponent(btnRefresh)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSubmitPermitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitPermitActionPerformed
+        String permitType = (String) cmbPermitType.getSelectedItem();
+        String routeDetails = txtRouteDetails.getText().trim();
+        String justification = txtJustification.getText().trim();
+
+        if (permitType == null || permitType.isEmpty() || routeDetails.isEmpty() || justification.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all permit fields", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Organization receiverOrg = findOrganization("New York Port Authority", "Safety Compliance Bureau");
+        if (receiverOrg == null) {
+            JOptionPane.showMessageDialog(this, "Safety Compliance Bureau not found", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String senderName = account.getEmployee() != null ? account.getEmployee().getName() : "Operations Manager";
+        OperationalPermitRequest request = new OperationalPermitRequest(permitType, routeDetails, justification, organization, receiverOrg, senderName);
+
+        organization.getWorkQueue().addWorkRequest(request);
+        receiverOrg.getWorkQueue().addWorkRequest(request);
+
+        JOptionPane.showMessageDialog(this, "Operational Permit Request submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        txtRouteDetails.setText("");
+        txtJustification.setText("");
+        cmbPermitType.setSelectedIndex(0);
+        populateTable();
+    }//GEN-LAST:event_btnSubmitPermitActionPerformed
+
+    private void btnProcessDisruptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessDisruptionActionPerformed
+        int selectedRow = tblRequests.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a request to process", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String requestId = (String) tblRequests.getValueAt(selectedRow, 0);
+        String newStatus = (String) cmbDisruptionStatus.getSelectedItem();
+        String authNotes = txtAuthNotes.getText().trim();
+
+        // find the request
+        WorkRequest request = null;
+        for (WorkRequest wr : organization.getWorkQueue().getWorkQueue()) {
+            if (wr.getWorkRequestId().equals(requestId)) {
+                request = wr;
+                break;
+            }
+        }
+
+        if (request == null || !(request instanceof PassengerDisruptionRequest)) {
+            JOptionPane.showMessageDialog(this, "Selected request is not a Passenger Disruption Request", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        PassengerDisruptionRequest disruptionRequest = (PassengerDisruptionRequest) request;
+        if (!disruptionRequest.canTransitionTo(newStatus)) {
+            JOptionPane.showMessageDialog(this, "Cannot transition to status: " + newStatus, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        disruptionRequest.setStatus(newStatus);
+        if ("Authorized".equals(newStatus)) {
+            disruptionRequest.setAuthorizationNotes(authNotes);
+        } else if ("Denied".equals(newStatus)) {
+            disruptionRequest.setDenialReason(authNotes);
+        }
+        disruptionRequest.setReceiverName(account.getEmployee() != null ? account.getEmployee().getName() : "Operations Manager");
+
+        JOptionPane.showMessageDialog(this, "Passenger Disruption Request processed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        txtAuthNotes.setText("");
+        cmbDisruptionStatus.setSelectedIndex(0);
+        populateTable();
+    }//GEN-LAST:event_btnProcessDisruptionActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        populateTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btnProcessDisruption;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnSubmitPermit;
+    private javax.swing.JComboBox<String> cmbDisruptionStatus;
+    private javax.swing.JComboBox<String> cmbPermitType;
+    private javax.swing.JLabel lblAuthNotes;
+    private javax.swing.JLabel lblDisruptionAction;
+    private javax.swing.JLabel lblDisruptionSection;
+    private javax.swing.JLabel lblJustification;
+    private javax.swing.JLabel lblPermitSection;
+    private javax.swing.JLabel lblPermitType;
+    private javax.swing.JLabel lblRouteDetails;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable tblRequests;
+    private javax.swing.JTextField txtAuthNotes;
+    private javax.swing.JTextField txtJustification;
+    private javax.swing.JTextField txtRouteDetails;
     // End of variables declaration//GEN-END:variables
 }

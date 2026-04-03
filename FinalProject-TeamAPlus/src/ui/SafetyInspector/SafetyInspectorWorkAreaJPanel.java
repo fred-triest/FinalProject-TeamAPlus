@@ -8,11 +8,16 @@ import Airport.AirportEcoSystem;
 import Airport.Enterprise.Enterprise;
 import Airport.Organization.Organization;
 import Airport.UserAccount.UserAccount;
+import Airport.WorkQueue.IncidentReport;
+import Airport.WorkQueue.OperationalPermitRequest;
+import Airport.WorkQueue.WorkRequest;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author fredtriest
+ * @author cohenpowell
  */
 public class SafetyInspectorWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -21,6 +26,7 @@ public class SafetyInspectorWorkAreaJPanel extends javax.swing.JPanel {
     Organization organization;
     Enterprise enterprise;
     AirportEcoSystem airport;
+
     /**
      * Creates new form SafetyInspectorWorkAreaJPanel
      */
@@ -31,6 +37,43 @@ public class SafetyInspectorWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.airport = airport;
+        populateTable();
+    }
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblRequests.getModel();
+        model.setRowCount(0);
+
+        for (WorkRequest request : organization.getWorkQueue().getWorkQueue()) {
+            Object[] row = new Object[4];
+            row[0] = request.getWorkRequestId();
+            if (request instanceof OperationalPermitRequest) {
+                row[1] = "Operational Permit";
+            } else if (request instanceof IncidentReport) {
+                row[1] = "Incident Report";
+            } else {
+                row[1] = "Other";
+            }
+            row[2] = request.getDescription();
+            row[3] = request.getStatus();
+            model.addRow(row);
+        }
+    }
+
+    private void clearPermitFields() {
+        cmbPermitStatus.setSelectedIndex(0);
+        txtComplianceNotes.setText("");
+        txtConditions.setText("");
+        txtDenialReason.setText("");
+    }
+
+    private void clearIncidentFields() {
+        cmbIncidentType.setSelectedIndex(0);
+        txtLocation.setText("");
+        txtDateTime.setText("");
+        cmbSeverity.setSelectedIndex(0);
+        txtInvolvedParties.setText("");
+        txtIncidentDescription.setText("");
     }
 
     /**
@@ -42,54 +85,333 @@ public class SafetyInspectorWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        tblRequests = new javax.swing.JTable();
+        lblProcessPermit = new javax.swing.JLabel();
+        lblPermitStatus = new javax.swing.JLabel();
+        cmbPermitStatus = new javax.swing.JComboBox<>();
+        lblComplianceNotes = new javax.swing.JLabel();
+        txtComplianceNotes = new javax.swing.JTextField();
+        lblConditions = new javax.swing.JLabel();
+        txtConditions = new javax.swing.JTextField();
+        lblDenialReason = new javax.swing.JLabel();
+        txtDenialReason = new javax.swing.JTextField();
+        btnProcessPermit = new javax.swing.JButton();
+        lblIncidentReport = new javax.swing.JLabel();
+        lblIncidentType = new javax.swing.JLabel();
+        cmbIncidentType = new javax.swing.JComboBox<>();
+        lblLocation = new javax.swing.JLabel();
+        txtLocation = new javax.swing.JTextField();
+        lblDateTime = new javax.swing.JLabel();
+        txtDateTime = new javax.swing.JTextField();
+        lblSeverity = new javax.swing.JLabel();
+        cmbSeverity = new javax.swing.JComboBox<>();
+        lblInvolvedParties = new javax.swing.JLabel();
+        txtInvolvedParties = new javax.swing.JTextField();
+        lblIncidentDescription = new javax.swing.JLabel();
+        txtIncidentDescription = new javax.swing.JTextField();
+        btnFileIncident = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        lblTitle.setText("Safety Inspector Work Area ");
+        lblTitle.setText("Safety Inspector Work Area");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(357, 357, 357)
-                .addComponent(lblTitle)
-                .addContainerGap(380, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(lblTitle)
-                .addContainerGap(765, Short.MAX_VALUE))
-        );
+        tblRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Type", "Description", "Status"
+            }
+        ));
+        scrollPane.setViewportView(tblRequests);
+
+        lblProcessPermit.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        lblProcessPermit.setText("Process Permit Request");
+
+        lblPermitStatus.setText("Status:");
+
+        cmbPermitStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Under Review", "Approved", "Conditionally Approved", "Denied" }));
+
+        lblComplianceNotes.setText("Compliance Notes:");
+
+        lblConditions.setText("Conditions:");
+
+        lblDenialReason.setText("Denial Reason:");
+
+        btnProcessPermit.setText("Process Permit");
+        btnProcessPermit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcessPermitActionPerformed(evt);
+            }
+        });
+
+        lblIncidentReport.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        lblIncidentReport.setText("File Incident Report");
+
+        lblIncidentType.setText("Incident Type:");
+
+        cmbIncidentType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ramp Collision", "FOD", "Spill", "Runway Incursion" }));
+
+        lblLocation.setText("Location:");
+
+        lblDateTime.setText("Date/Time:");
+
+        lblSeverity.setText("Severity:");
+
+        cmbSeverity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Low", "Medium", "High", "Critical" }));
+
+        lblInvolvedParties.setText("Involved Parties:");
+
+        lblIncidentDescription.setText("Description:");
+
+        btnFileIncident.setText("File Incident");
+        btnFileIncident.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFileIncidentActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1200, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblProcessPermit)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblPermitStatus)
+                                    .addComponent(lblComplianceNotes)
+                                    .addComponent(lblConditions)
+                                    .addComponent(lblDenialReason))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbPermitStatus, 0, 250, Short.MAX_VALUE)
+                                    .addComponent(txtComplianceNotes, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                    .addComponent(txtConditions, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                    .addComponent(txtDenialReason, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))
+                            .addComponent(btnProcessPermit))
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblIncidentReport)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblIncidentType)
+                                    .addComponent(lblLocation)
+                                    .addComponent(lblDateTime)
+                                    .addComponent(lblSeverity)
+                                    .addComponent(lblInvolvedParties)
+                                    .addComponent(lblIncidentDescription))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbIncidentType, 0, 200, Short.MAX_VALUE)
+                                    .addComponent(txtLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(txtDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(cmbSeverity, 0, 200, Short.MAX_VALUE)
+                                    .addComponent(txtInvolvedParties, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(txtIncidentDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                            .addComponent(btnFileIncident))))
+                .addGap(20, 20, 20))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(btnRefresh)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 846, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblTitle)
+                .addGap(20, 20, 20)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblProcessPermit)
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPermitStatus)
+                            .addComponent(cmbPermitStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblComplianceNotes)
+                            .addComponent(txtComplianceNotes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblConditions)
+                            .addComponent(txtConditions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblDenialReason)
+                            .addComponent(txtDenialReason, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(btnProcessPermit))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblIncidentReport)
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblIncidentType)
+                            .addComponent(cmbIncidentType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblLocation)
+                            .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblDateTime)
+                            .addComponent(txtDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSeverity)
+                            .addComponent(cmbSeverity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblInvolvedParties)
+                            .addComponent(txtInvolvedParties, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblIncidentDescription)
+                            .addComponent(txtIncidentDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(btnFileIncident)))
+                .addGap(30, 30, 30)
+                .addComponent(btnRefresh)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnProcessPermitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessPermitActionPerformed
+
+        int selectedRow = tblRequests.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a request to process", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String requestId = (String) tblRequests.getValueAt(selectedRow, 0);
+        WorkRequest selectedRequest = null;
+
+        // find request by ID
+        for (WorkRequest request : organization.getWorkQueue().getWorkQueue()) {
+            if (request.getWorkRequestId().equals(requestId)) {
+                selectedRequest = request;
+                break;
+            }
+        }
+
+        if (selectedRequest == null || !(selectedRequest instanceof OperationalPermitRequest)) {
+            JOptionPane.showMessageDialog(null, "Selected request is not a permit request", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        OperationalPermitRequest permitRequest = (OperationalPermitRequest) selectedRequest;
+        String newStatus = cmbPermitStatus.getSelectedItem().toString();
+
+        if (!permitRequest.canTransitionTo(newStatus)) {
+            JOptionPane.showMessageDialog(null, "Invalid status transition", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // update permit status and details
+        permitRequest.setStatus(newStatus);
+        permitRequest.setComplianceNotes(txtComplianceNotes.getText());
+
+        if ("Conditionally Approved".equals(newStatus)) {
+            permitRequest.setConditions(txtConditions.getText());
+        }
+
+        if ("Denied".equals(newStatus)) {
+            permitRequest.setDenialReason(txtDenialReason.getText());
+        }
+
+        permitRequest.setReceiverName(account.getEmployee().getName());
+
+        JOptionPane.showMessageDialog(null, "Permit request processed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        clearPermitFields();
+        populateTable();
+    }//GEN-LAST:event_btnProcessPermitActionPerformed
+
+    private void btnFileIncidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFileIncidentActionPerformed
+
+        if (txtLocation.getText().trim().isEmpty() ||
+            txtDateTime.getText().trim().isEmpty() ||
+            txtIncidentDescription.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill in all required fields", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String incidentType = cmbIncidentType.getSelectedItem().toString();
+        String location = txtLocation.getText();
+        String dateTime = txtDateTime.getText();
+        String severity = cmbSeverity.getSelectedItem().toString();
+        String involvedParties = txtInvolvedParties.getText();
+        String description = txtIncidentDescription.getText();
+
+        // create incident report
+        IncidentReport incidentReport = new IncidentReport(
+            incidentType, location, dateTime, severity, involvedParties,
+            description, organization, organization, account.getEmployee().getName()
+        );
+
+        organization.getWorkQueue().addWorkRequest(incidentReport);
+
+        JOptionPane.showMessageDialog(null, "Incident report filed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        clearIncidentFields();
+        populateTable();
+    }//GEN-LAST:event_btnFileIncidentActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        populateTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btnFileIncident;
+    private javax.swing.JButton btnProcessPermit;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JComboBox<String> cmbIncidentType;
+    private javax.swing.JComboBox<String> cmbPermitStatus;
+    private javax.swing.JComboBox<String> cmbSeverity;
+    private javax.swing.JLabel lblComplianceNotes;
+    private javax.swing.JLabel lblConditions;
+    private javax.swing.JLabel lblDateTime;
+    private javax.swing.JLabel lblDenialReason;
+    private javax.swing.JLabel lblIncidentDescription;
+    private javax.swing.JLabel lblIncidentReport;
+    private javax.swing.JLabel lblIncidentType;
+    private javax.swing.JLabel lblInvolvedParties;
+    private javax.swing.JLabel lblLocation;
+    private javax.swing.JLabel lblPermitStatus;
+    private javax.swing.JLabel lblProcessPermit;
+    private javax.swing.JLabel lblSeverity;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable tblRequests;
+    private javax.swing.JTextField txtComplianceNotes;
+    private javax.swing.JTextField txtConditions;
+    private javax.swing.JTextField txtDateTime;
+    private javax.swing.JTextField txtDenialReason;
+    private javax.swing.JTextField txtIncidentDescription;
+    private javax.swing.JTextField txtInvolvedParties;
+    private javax.swing.JTextField txtLocation;
     // End of variables declaration//GEN-END:variables
 }

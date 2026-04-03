@@ -6,13 +6,18 @@ package ui.PassengerServicesAgent;
 
 import Airport.AirportEcoSystem;
 import Airport.Enterprise.Enterprise;
+import Airport.Network.Network;
 import Airport.Organization.Organization;
 import Airport.UserAccount.UserAccount;
+import Airport.WorkQueue.PassengerDisruptionRequest;
+import Airport.WorkQueue.WorkRequest;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author fredtriest
+ * @author cohenpowell
  */
 public class PassengerServicesAgentWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -21,6 +26,7 @@ public class PassengerServicesAgentWorkAreaJPanel extends javax.swing.JPanel {
     Organization organization;
     Enterprise enterprise;
     AirportEcoSystem airport;
+
     /**
      * Creates new form PassengerServicesAgentWorkAreaJPanel
      */
@@ -31,6 +37,42 @@ public class PassengerServicesAgentWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.airport = airport;
+        populateTable();
+    }
+
+    public void populateTable() {
+
+        DefaultTableModel model = (DefaultTableModel) tblRequests.getModel();
+        model.setRowCount(0);
+
+        // add disruption requests to table
+        for (WorkRequest wr : organization.getWorkQueue().getWorkQueue()) {
+            if (wr instanceof PassengerDisruptionRequest) {
+                PassengerDisruptionRequest pdr = (PassengerDisruptionRequest) wr;
+                Object[] row = new Object[5];
+                row[0] = pdr.getWorkRequestId();
+                row[1] = pdr.getDisruptionType();
+                row[2] = pdr.getFlightNumber();
+                row[3] = pdr.getAffectedPassengers();
+                row[4] = pdr.getStatus();
+                model.addRow(row);
+            }
+        }
+    }
+
+    public Organization findOrganization(String enterpriseName, String orgName) {
+        for (Network network : airport.getNetworkList()) {
+            for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (ent.getName().equals(enterpriseName)) {
+                    for (Organization org : ent.getOrganizationDirectory().getOrganizationList()) {
+                        if (org.getName().equals(orgName)) {
+                            return org;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -42,54 +84,222 @@ public class PassengerServicesAgentWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        tblRequests = new javax.swing.JTable();
+        lblDisruptionType = new javax.swing.JLabel();
+        cmbDisruptionType = new javax.swing.JComboBox<>();
+        lblFlightNumber = new javax.swing.JLabel();
+        txtFlightNumber = new javax.swing.JTextField();
+        lblAffectedPassengers = new javax.swing.JLabel();
+        txtAffectedPassengers = new javax.swing.JTextField();
+        lblRequestedAction = new javax.swing.JLabel();
+        txtRequestedAction = new javax.swing.JTextField();
+        lblEstimatedCost = new javax.swing.JLabel();
+        txtEstimatedCost = new javax.swing.JTextField();
+        lblPassengerDetails = new javax.swing.JLabel();
+        txtPassengerDetails = new javax.swing.JTextField();
+        btnSubmit = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        lblTitle.setText("Passenger Services Agent Work Area ");
+        lblTitle.setText("Passenger Services Work Area");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(357, 357, 357)
-                .addComponent(lblTitle)
-                .addContainerGap(380, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(lblTitle)
-                .addContainerGap(765, Short.MAX_VALUE))
-        );
+        tblRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Disruption Type", "Flight #", "Passengers", "Status"
+            }
+        ));
+        scrollPane.setViewportView(tblRequests);
+
+        lblDisruptionType.setText("Disruption Type:");
+
+        cmbDisruptionType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cancellation", "Delay", "Overbooking" }));
+
+        lblFlightNumber.setText("Flight Number:");
+
+        lblAffectedPassengers.setText("Affected Passengers:");
+
+        lblRequestedAction.setText("Requested Action:");
+
+        lblEstimatedCost.setText("Estimated Cost:");
+
+        lblPassengerDetails.setText("Passenger Details:");
+
+        btnSubmit.setText("Submit Request");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1344, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDisruptionType)
+                            .addComponent(lblFlightNumber)
+                            .addComponent(lblAffectedPassengers)
+                            .addComponent(lblRequestedAction)
+                            .addComponent(lblEstimatedCost)
+                            .addComponent(lblPassengerDetails))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbDisruptionType, 0, 316, Short.MAX_VALUE)
+                            .addComponent(txtFlightNumber)
+                            .addComponent(txtAffectedPassengers)
+                            .addComponent(txtRequestedAction)
+                            .addComponent(txtEstimatedCost)
+                            .addComponent(txtPassengerDetails)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSubmit)
+                        .addGap(51, 51, 51)
+                        .addComponent(btnRefresh)))
+                .addContainerGap(432, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 94, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(432, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(223, 223, 223)
+                .addComponent(lblTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 846, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(lblTitle)
+                .addGap(18, 18, 18)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDisruptionType)
+                    .addComponent(cmbDisruptionType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFlightNumber)
+                    .addComponent(txtFlightNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAffectedPassengers)
+                    .addComponent(txtAffectedPassengers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRequestedAction)
+                    .addComponent(txtRequestedAction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEstimatedCost)
+                    .addComponent(txtEstimatedCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPassengerDetails)
+                    .addComponent(txtPassengerDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSubmit)
+                    .addComponent(btnRefresh))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+
+        String flightNumber = txtFlightNumber.getText().trim();
+        String requestedAction = txtRequestedAction.getText().trim();
+        String passengerDetails = txtPassengerDetails.getText().trim();
+
+        if (flightNumber.isEmpty() || requestedAction.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill in all required fields", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // parse the numbers
+        int affectedPassengers;
+        double estimatedCost;
+        try {
+            affectedPassengers = Integer.parseInt(txtAffectedPassengers.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Affected passengers must be a number", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            estimatedCost = Double.parseDouble(txtEstimatedCost.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Estimated cost must be a number", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Organization receiverOrg = findOrganization("Japan Airlines", "Flight Operations Division");
+        if (receiverOrg == null) {
+            JOptionPane.showMessageDialog(null, "Could not find Flight Operations Division", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String disruptionType = (String) cmbDisruptionType.getSelectedItem();
+
+        // create and submit the request
+        PassengerDisruptionRequest request = new PassengerDisruptionRequest(
+            disruptionType, flightNumber, affectedPassengers, requestedAction,
+            estimatedCost, passengerDetails, organization, receiverOrg,
+            account.getEmployee().getName()
+        );
+
+        organization.getWorkQueue().addWorkRequest(request);
+        receiverOrg.getWorkQueue().addWorkRequest(request);
+
+        JOptionPane.showMessageDialog(null, "Disruption request submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        // clear fields
+        txtFlightNumber.setText("");
+        txtAffectedPassengers.setText("");
+        txtRequestedAction.setText("");
+        txtEstimatedCost.setText("");
+        txtPassengerDetails.setText("");
+        populateTable();
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        populateTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnSubmit;
+    private javax.swing.JComboBox<String> cmbDisruptionType;
+    private javax.swing.JLabel lblAffectedPassengers;
+    private javax.swing.JLabel lblDisruptionType;
+    private javax.swing.JLabel lblEstimatedCost;
+    private javax.swing.JLabel lblFlightNumber;
+    private javax.swing.JLabel lblPassengerDetails;
+    private javax.swing.JLabel lblRequestedAction;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable tblRequests;
+    private javax.swing.JTextField txtAffectedPassengers;
+    private javax.swing.JTextField txtEstimatedCost;
+    private javax.swing.JTextField txtFlightNumber;
+    private javax.swing.JTextField txtPassengerDetails;
+    private javax.swing.JTextField txtRequestedAction;
     // End of variables declaration//GEN-END:variables
 }

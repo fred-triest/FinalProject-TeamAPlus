@@ -6,12 +6,19 @@ package ui.FlightScheduler;
 
 import Airport.AirportEcoSystem;
 import Airport.Enterprise.Enterprise;
+import Airport.Network.Network;
 import Airport.Organization.Organization;
 import Airport.UserAccount.UserAccount;
+import Airport.WorkQueue.GateAssignmentRequest;
+import Airport.WorkQueue.GroundHandlingRequest;
+import Airport.WorkQueue.WorkRequest;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
- * @author fredtriest
+ * @author cohenpowell
  */
 public class FlightSchedulerWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -20,6 +27,7 @@ public class FlightSchedulerWorkAreaJPanel extends javax.swing.JPanel {
     Organization organization;
     Enterprise enterprise;
     AirportEcoSystem airport;
+
     /**
      * Creates new form FlightSchedulerWorkAreaJPanel
      */
@@ -30,6 +38,48 @@ public class FlightSchedulerWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.airport = airport;
+        populateTable();
+    }
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblRequests.getModel();
+        model.setRowCount(0);
+
+        // go through requests and add them to the table
+        for (WorkRequest workRequest : organization.getWorkQueue().getWorkQueue()) {
+            if (workRequest instanceof GateAssignmentRequest) {
+                GateAssignmentRequest gar = (GateAssignmentRequest) workRequest;
+                Object[] row = new Object[4];
+                row[0] = gar.getWorkRequestId();
+                row[1] = "Gate Assignment";
+                row[2] = gar.getFlightNumber();
+                row[3] = gar.getStatus();
+                model.addRow(row);
+            } else if (workRequest instanceof GroundHandlingRequest) {
+                GroundHandlingRequest ghr = (GroundHandlingRequest) workRequest;
+                Object[] row = new Object[4];
+                row[0] = ghr.getWorkRequestId();
+                row[1] = "Ground Handling";
+                row[2] = ghr.getFlightNumber();
+                row[3] = ghr.getStatus();
+                model.addRow(row);
+            }
+        }
+    }
+
+    public Organization findOrganization(String enterpriseName, String orgName) {
+        for (Network network : airport.getNetworkList()) {
+            for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (ent.getName().equals(enterpriseName)) {
+                    for (Organization org : ent.getOrganizationDirectory().getOrganizationList()) {
+                        if (org.getName().equals(orgName)) {
+                            return org;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -41,54 +91,318 @@ public class FlightSchedulerWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        tblRequests = new javax.swing.JTable();
+        lblGateSection = new javax.swing.JLabel();
+        lblFlightNumber = new javax.swing.JLabel();
+        txtFlightNumber = new javax.swing.JTextField();
+        lblAircraftType = new javax.swing.JLabel();
+        txtAircraftType = new javax.swing.JTextField();
+        lblScheduledTime = new javax.swing.JLabel();
+        txtScheduledTime = new javax.swing.JTextField();
+        lblFlightType = new javax.swing.JLabel();
+        cmbFlightType = new javax.swing.JComboBox<>();
+        lblRequestedGate = new javax.swing.JLabel();
+        txtRequestedGate = new javax.swing.JTextField();
+        btnSubmitGate = new javax.swing.JButton();
+        lblGroundSection = new javax.swing.JLabel();
+        lblGHFlightNumber = new javax.swing.JLabel();
+        txtGHFlightNumber = new javax.swing.JTextField();
+        lblGateNumber = new javax.swing.JLabel();
+        txtGateNumber = new javax.swing.JTextField();
+        lblGHAircraftType = new javax.swing.JLabel();
+        txtGHAircraftType = new javax.swing.JTextField();
+        chkRefueling = new javax.swing.JCheckBox();
+        chkCleaning = new javax.swing.JCheckBox();
+        chkCatering = new javax.swing.JCheckBox();
+        btnSubmitGround = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        lblTitle.setText("Flight Scheduler Work Area ");
+        lblTitle.setText("Flight Scheduler Work Area");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(357, 357, 357)
-                .addComponent(lblTitle)
-                .addContainerGap(380, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(lblTitle)
-                .addContainerGap(850, Short.MAX_VALUE))
-        );
+        tblRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Type", "Flight #", "Status"
+            }
+        ));
+        scrollPane.setViewportView(tblRequests);
+
+        lblGateSection.setText("Gate Assignment Request");
+
+        lblFlightNumber.setText("Flight Number:");
+
+        lblAircraftType.setText("Aircraft Type:");
+
+        lblScheduledTime.setText("Scheduled Time:");
+
+        lblFlightType.setText("Flight Type:");
+
+        cmbFlightType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arrival", "Departure" }));
+
+        lblRequestedGate.setText("Requested Gate:");
+
+        btnSubmitGate.setText("Submit Gate Request");
+        btnSubmitGate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitGateActionPerformed(evt);
+            }
+        });
+
+        lblGroundSection.setText("Ground Handling Request");
+
+        lblGHFlightNumber.setText("Flight Number:");
+
+        lblGateNumber.setText("Gate Number:");
+
+        lblGHAircraftType.setText("Aircraft Type:");
+
+        chkRefueling.setText("Refueling");
+
+        chkCleaning.setText("Cleaning");
+
+        chkCatering.setText("Catering");
+
+        btnSubmitGround.setText("Submit Ground Request");
+        btnSubmitGround.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitGroundActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1200, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblGateSection)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFlightNumber)
+                            .addComponent(lblAircraftType)
+                            .addComponent(lblScheduledTime)
+                            .addComponent(lblFlightType)
+                            .addComponent(lblRequestedGate))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtFlightNumber)
+                            .addComponent(txtAircraftType)
+                            .addComponent(txtScheduledTime)
+                            .addComponent(cmbFlightType, 0, 300, Short.MAX_VALUE)
+                            .addComponent(txtRequestedGate)))
+                    .addComponent(btnSubmitGate)
+                    .addComponent(lblGroundSection)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblGHFlightNumber)
+                            .addComponent(lblGateNumber)
+                            .addComponent(lblGHAircraftType))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtGHFlightNumber)
+                            .addComponent(txtGateNumber)
+                            .addComponent(txtGHAircraftType, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(chkRefueling)
+                        .addGap(18, 18, 18)
+                        .addComponent(chkCleaning)
+                        .addGap(18, 18, 18)
+                        .addComponent(chkCatering))
+                    .addComponent(btnSubmitGround)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRefresh)))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 931, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(lblTitle)
+                .addGap(18, 18, 18)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblGateSection)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFlightNumber)
+                    .addComponent(txtFlightNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAircraftType)
+                    .addComponent(txtAircraftType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblScheduledTime)
+                    .addComponent(txtScheduledTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFlightType)
+                    .addComponent(cmbFlightType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRequestedGate)
+                    .addComponent(txtRequestedGate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(btnSubmitGate)
+                .addGap(18, 18, 18)
+                .addComponent(lblGroundSection)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGHFlightNumber)
+                    .addComponent(txtGHFlightNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGateNumber)
+                    .addComponent(txtGateNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGHAircraftType)
+                    .addComponent(txtGHAircraftType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chkRefueling)
+                    .addComponent(chkCleaning)
+                    .addComponent(chkCatering))
+                .addGap(12, 12, 12)
+                .addComponent(btnSubmitGround)
+                .addGap(18, 18, 18)
+                .addComponent(btnRefresh)
+                .addContainerGap(150, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSubmitGateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitGateActionPerformed
+        String flightNumber = txtFlightNumber.getText().trim();
+        String aircraftType = txtAircraftType.getText().trim();
+        String scheduledTime = txtScheduledTime.getText().trim();
+        String requestedGate = txtRequestedGate.getText().trim();
+
+        if (flightNumber.isEmpty() || aircraftType.isEmpty() || scheduledTime.isEmpty() || requestedGate.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill in all gate assignment fields", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Organization receiverOrg = findOrganization("New York Port Authority", "Gate Terminal Management Office");
+        if (receiverOrg == null) {
+            JOptionPane.showMessageDialog(null, "Receiver organization not found", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String flightType = (String) cmbFlightType.getSelectedItem();
+        GateAssignmentRequest request = new GateAssignmentRequest(
+            flightNumber,
+            aircraftType,
+            scheduledTime,
+            flightType,
+            requestedGate,
+            organization,
+            receiverOrg,
+            account.getEmployee().getName()
+        );
+
+        // add to both work queues
+        organization.getWorkQueue().addWorkRequest(request);
+        receiverOrg.getWorkQueue().addWorkRequest(request);
+
+        JOptionPane.showMessageDialog(null, "Gate assignment request submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        txtFlightNumber.setText("");
+        txtAircraftType.setText("");
+        txtScheduledTime.setText("");
+        txtRequestedGate.setText("");
+        populateTable();
+    }//GEN-LAST:event_btnSubmitGateActionPerformed
+
+    private void btnSubmitGroundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitGroundActionPerformed
+        String flightNumber = txtGHFlightNumber.getText().trim();
+        String gateNumber = txtGateNumber.getText().trim();
+        String aircraftType = txtGHAircraftType.getText().trim();
+
+        if (flightNumber.isEmpty() || gateNumber.isEmpty() || aircraftType.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill in all ground handling fields", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Organization receiverOrg = findOrganization("Ground Master Services", "Ramp Refueling Unit");
+        if (receiverOrg == null) {
+            JOptionPane.showMessageDialog(null, "Receiver organization not found", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        GroundHandlingRequest request = new GroundHandlingRequest(
+            flightNumber,
+            gateNumber,
+            aircraftType,
+            chkRefueling.isSelected(),
+            chkCleaning.isSelected(),
+            chkCatering.isSelected(),
+            organization,
+            receiverOrg,
+            account.getEmployee().getName()
+        );
+
+        // add request to both work queues
+        organization.getWorkQueue().addWorkRequest(request);
+        receiverOrg.getWorkQueue().addWorkRequest(request);
+
+        JOptionPane.showMessageDialog(null, "Ground handling request submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        txtGHFlightNumber.setText("");
+        txtGateNumber.setText("");
+        txtGHAircraftType.setText("");
+        chkRefueling.setSelected(false);
+        chkCleaning.setSelected(false);
+        chkCatering.setSelected(false);
+        populateTable();
+    }//GEN-LAST:event_btnSubmitGroundActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        populateTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnSubmitGate;
+    private javax.swing.JButton btnSubmitGround;
+    private javax.swing.JCheckBox chkCatering;
+    private javax.swing.JCheckBox chkCleaning;
+    private javax.swing.JCheckBox chkRefueling;
+    private javax.swing.JComboBox<String> cmbFlightType;
+    private javax.swing.JLabel lblAircraftType;
+    private javax.swing.JLabel lblFlightNumber;
+    private javax.swing.JLabel lblFlightType;
+    private javax.swing.JLabel lblGateNumber;
+    private javax.swing.JLabel lblGateSection;
+    private javax.swing.JLabel lblGHAircraftType;
+    private javax.swing.JLabel lblGHFlightNumber;
+    private javax.swing.JLabel lblGroundSection;
+    private javax.swing.JLabel lblRequestedGate;
+    private javax.swing.JLabel lblScheduledTime;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable tblRequests;
+    private javax.swing.JTextField txtAircraftType;
+    private javax.swing.JTextField txtFlightNumber;
+    private javax.swing.JTextField txtGateNumber;
+    private javax.swing.JTextField txtGHAircraftType;
+    private javax.swing.JTextField txtGHFlightNumber;
+    private javax.swing.JTextField txtRequestedGate;
+    private javax.swing.JTextField txtScheduledTime;
     // End of variables declaration//GEN-END:variables
 }
