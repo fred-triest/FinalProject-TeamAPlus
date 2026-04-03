@@ -8,11 +8,15 @@ import Airport.AirportEcoSystem;
 import Airport.Enterprise.Enterprise;
 import Airport.Organization.Organization;
 import Airport.UserAccount.UserAccount;
+import Airport.WorkQueue.IncidentReport;
+import Airport.WorkQueue.WorkRequest;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author fredtriest
+ * @author cohenpowell
  */
 public class ComplianceOfficerWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -21,6 +25,7 @@ public class ComplianceOfficerWorkAreaJPanel extends javax.swing.JPanel {
     Organization organization;
     Enterprise enterprise;
     AirportEcoSystem airport;
+
     /**
      * Creates new form ComplianceOfficerWorkAreaJPanel
      */
@@ -31,6 +36,26 @@ public class ComplianceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.airport = airport;
+        populateTable();
+    }
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblRequests.getModel();
+        model.setRowCount(0);
+
+        // display incident reports
+        for (WorkRequest request : organization.getWorkQueue().getWorkQueue()) {
+            if (request instanceof IncidentReport) {
+                IncidentReport report = (IncidentReport) request;
+                Object[] row = new Object[5];
+                row[0] = report.getWorkRequestId();
+                row[1] = report.getIncidentType();
+                row[2] = report.getLocation();
+                row[3] = report.getSeverity();
+                row[4] = report.getStatus();
+                model.addRow(row);
+            }
+        }
     }
 
     /**
@@ -42,54 +67,173 @@ public class ComplianceOfficerWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        tblRequests = new javax.swing.JTable();
+        lblStatus = new javax.swing.JLabel();
+        cmbStatus = new javax.swing.JComboBox<>();
+        lblAuditFindings = new javax.swing.JLabel();
+        txtAuditFindings = new javax.swing.JTextField();
+        lblViolationDetails = new javax.swing.JLabel();
+        txtViolationDetails = new javax.swing.JTextField();
+        btnProcessIncident = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        lblTitle.setText("Compliance Officer Work Area ");
+        lblTitle.setText("Compliance Officer Work Area");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(357, 357, 357)
-                .addComponent(lblTitle)
-                .addContainerGap(380, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(lblTitle)
-                .addContainerGap(765, Short.MAX_VALUE))
-        );
+        tblRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Incident Type", "Location", "Severity", "Status"
+            }
+        ));
+        scrollPane.setViewportView(tblRequests);
+
+        lblStatus.setText("Status:");
+
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Under Review", "Audit Initiated", "Closed", "Violation Issued" }));
+
+        lblAuditFindings.setText("Audit Findings:");
+
+        lblViolationDetails.setText("Violation Details:");
+
+        btnProcessIncident.setText("Process Incident");
+        btnProcessIncident.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcessIncidentActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1234, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(223, 223, 223)
+                .addComponent(lblTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(432, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblStatus)
+                    .addComponent(lblAuditFindings)
+                    .addComponent(lblViolationDetails))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbStatus, 0, 316, Short.MAX_VALUE)
+                    .addComponent(txtAuditFindings)
+                    .addComponent(txtViolationDetails))
+                .addContainerGap(432, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(btnProcessIncident)
+                .addGap(18, 18, 18)
+                .addComponent(btnRefresh)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 846, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(lblTitle)
+                .addGap(18, 18, 18)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStatus)
+                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAuditFindings)
+                    .addComponent(txtAuditFindings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblViolationDetails)
+                    .addComponent(txtViolationDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnProcessIncident)
+                    .addComponent(btnRefresh))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnProcessIncidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessIncidentActionPerformed
+        int selectedRow = tblRequests.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select an incident to process", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String requestId = (String) tblRequests.getValueAt(selectedRow, 0);
+
+        // find the incident report
+        IncidentReport report = null;
+        for (WorkRequest request : organization.getWorkQueue().getWorkQueue()) {
+            if (request instanceof IncidentReport && request.getWorkRequestId().equals(requestId)) {
+                report = (IncidentReport) request;
+                break;
+            }
+        }
+
+        if (report == null) {
+            JOptionPane.showMessageDialog(null, "Incident not found in work queue", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String newStatus = (String) cmbStatus.getSelectedItem();
+
+        if (!report.canTransitionTo(newStatus)) {
+            JOptionPane.showMessageDialog(null, "Invalid status transition", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // update incident status and findings
+        report.setStatus(newStatus);
+        report.setAuditFindings(txtAuditFindings.getText());
+        report.setViolationDetails(txtViolationDetails.getText());
+        report.setReceiverName(account.getEmployee().getName());
+
+        JOptionPane.showMessageDialog(null, "Incident processed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        populateTable();
+        txtAuditFindings.setText("");
+        txtViolationDetails.setText("");
+    }//GEN-LAST:event_btnProcessIncidentActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        populateTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btnProcessIncident;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JComboBox<String> cmbStatus;
+    private javax.swing.JLabel lblAuditFindings;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblViolationDetails;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable tblRequests;
+    private javax.swing.JTextField txtAuditFindings;
+    private javax.swing.JTextField txtViolationDetails;
     // End of variables declaration//GEN-END:variables
 }
