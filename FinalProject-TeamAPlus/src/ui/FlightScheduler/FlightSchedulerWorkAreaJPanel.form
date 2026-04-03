@@ -16,62 +16,267 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="1200" max="32767" attributes="0"/>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
+                  <Component id="scrollPane" min="-2" pref="800" max="-2" attributes="0"/>
+                  <Component id="lblGateSection" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblFlightNumber" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAircraftType" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblScheduledTime" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFlightType" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblRequestedGate" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txtFlightNumber" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtAircraftType" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtScheduledTime" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbFlightType" pref="300" max="32767" attributes="0"/>
+                          <Component id="txtRequestedGate" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="btnSubmitGate" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblGroundSection" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblGHFlightNumber" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblGateNumber" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblGHAircraftType" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txtGHFlightNumber" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtGateNumber" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtGHAircraftType" min="-2" pref="300" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="chkRefueling" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="chkCleaning" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="chkCatering" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="btnSubmitGround" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnRefresh" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace pref="200" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="931" max="32767" attributes="0"/>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="scrollPane" min="-2" pref="200" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="lblGateSection" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblFlightNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtFlightNumber" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblAircraftType" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtAircraftType" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblScheduledTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtScheduledTime" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblFlightType" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbFlightType" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblRequestedGate" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtRequestedGate" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Component id="btnSubmitGate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="lblGroundSection" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblGHFlightNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtGHFlightNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblGateNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtGateNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblGHAircraftType" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtGHAircraftType" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="chkRefueling" min="-2" max="-2" attributes="0"/>
+                  <Component id="chkCleaning" min="-2" max="-2" attributes="0"/>
+                  <Component id="chkCatering" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Component id="btnSubmitGround" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnRefresh" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="150" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="357" max="-2" attributes="0"/>
-                  <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="380" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="850" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
+    <Component class="javax.swing.JLabel" name="lblTitle">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Helvetica Neue" size="36" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Flight Scheduler Work Area"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="scrollPane">
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblTitle">
+        <Component class="javax.swing.JTable" name="tblRequests">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Helvetica Neue" size="36" style="0"/>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="4" rowCount="4">
+                <Column editable="true" title="ID" type="java.lang.Object"/>
+                <Column editable="true" title="Type" type="java.lang.Object"/>
+                <Column editable="true" title="Flight #" type="java.lang.Object"/>
+                <Column editable="true" title="Status" type="java.lang.Object"/>
+              </Table>
             </Property>
-            <Property name="text" type="java.lang.String" value="Flight Scheduler Work Area "/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="lblGateSection">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Gate Assignment Request"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblFlightNumber">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Flight Number:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtFlightNumber">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAircraftType">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Aircraft Type:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtAircraftType">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblScheduledTime">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Scheduled Time:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtScheduledTime">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblFlightType">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Flight Type:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbFlightType">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="2">
+            <StringItem index="0" value="Arrival"/>
+            <StringItem index="1" value="Departure"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblRequestedGate">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Requested Gate:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtRequestedGate">
+    </Component>
+    <Component class="javax.swing.JButton" name="btnSubmitGate">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Submit Gate Request"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmitGateActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblGroundSection">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ground Handling Request"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblGHFlightNumber">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Flight Number:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtGHFlightNumber">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblGateNumber">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Gate Number:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtGateNumber">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblGHAircraftType">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Aircraft Type:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtGHAircraftType">
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkRefueling">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Refueling"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkCleaning">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cleaning"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkCatering">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Catering"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnSubmitGround">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Submit Ground Request"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmitGroundActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRefresh">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Refresh"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

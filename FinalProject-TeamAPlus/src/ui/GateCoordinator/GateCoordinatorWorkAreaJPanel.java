@@ -8,11 +8,15 @@ import Airport.AirportEcoSystem;
 import Airport.Enterprise.Enterprise;
 import Airport.Organization.Organization;
 import Airport.UserAccount.UserAccount;
+import Airport.WorkQueue.GateAssignmentRequest;
+import Airport.WorkQueue.WorkRequest;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author fredtriest
+ * @author cohenpowell
  */
 public class GateCoordinatorWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -21,6 +25,7 @@ public class GateCoordinatorWorkAreaJPanel extends javax.swing.JPanel {
     Organization organization;
     Enterprise enterprise;
     AirportEcoSystem airport;
+
     /**
      * Creates new form GateCoordinatorWorkAreaJPanel
      */
@@ -31,6 +36,28 @@ public class GateCoordinatorWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.airport = airport;
+        populateTable();
+    }
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblRequests.getModel();
+        model.setRowCount(0);
+
+        // add gate requests to the table
+        for (WorkRequest request : organization.getWorkQueue().getWorkQueue()) {
+            if (request instanceof GateAssignmentRequest) {
+                GateAssignmentRequest gateRequest = (GateAssignmentRequest) request;
+                Object[] row = new Object[7];
+                row[0] = gateRequest.getWorkRequestId();
+                row[1] = gateRequest.getFlightNumber();
+                row[2] = gateRequest.getAircraftType();
+                row[3] = gateRequest.getScheduledTime();
+                row[4] = gateRequest.getFlightType();
+                row[5] = gateRequest.getRequestedGate();
+                row[6] = gateRequest.getStatus();
+                model.addRow(row);
+            }
+        }
     }
 
     /**
@@ -42,54 +69,180 @@ public class GateCoordinatorWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        tblRequests = new javax.swing.JTable();
+        lblAssignedGate = new javax.swing.JLabel();
+        txtAssignedGate = new javax.swing.JTextField();
+        lblTerminalSection = new javax.swing.JLabel();
+        txtTerminalSection = new javax.swing.JTextField();
+        lblConflictNotes = new javax.swing.JLabel();
+        txtConflictNotes = new javax.swing.JTextField();
+        lblStatus = new javax.swing.JLabel();
+        cmbStatus = new javax.swing.JComboBox<>();
+        btnUpdateStatus = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        lblTitle.setText("Gate Coordinator Work Area ");
+        lblTitle.setText("Gate Coordinator Work Area");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(357, 357, 357)
-                .addComponent(lblTitle)
-                .addContainerGap(380, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(lblTitle)
-                .addContainerGap(765, Short.MAX_VALUE))
-        );
+        tblRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Flight #", "Aircraft", "Time", "Type", "Req. Gate", "Status"
+            }
+        ));
+        scrollPane.setViewportView(tblRequests);
+
+        lblAssignedGate.setText("Assigned Gate:");
+
+        lblTerminalSection.setText("Terminal Section:");
+
+        lblConflictNotes.setText("Conflict Notes:");
+
+        lblStatus.setText("Status:");
+
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Under Review", "Assigned", "Conflict Flagged", "Confirmed" }));
+
+        btnUpdateStatus.setText("Update Status");
+        btnUpdateStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateStatusActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1203, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(321, 321, 321)
+                .addComponent(lblTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAssignedGate)
+                            .addComponent(lblTerminalSection)
+                            .addComponent(lblConflictNotes)
+                            .addComponent(lblStatus))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtAssignedGate)
+                            .addComponent(txtTerminalSection)
+                            .addComponent(txtConflictNotes)
+                            .addComponent(cmbStatus, 0, 300, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnUpdateStatus)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRefresh)))
+                .addContainerGap(432, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 846, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(lblTitle)
+                .addGap(18, 18, 18)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAssignedGate)
+                    .addComponent(txtAssignedGate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTerminalSection)
+                    .addComponent(txtTerminalSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblConflictNotes)
+                    .addComponent(txtConflictNotes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStatus)
+                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdateStatus)
+                    .addComponent(btnRefresh))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnUpdateStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateStatusActionPerformed
+        int selectedRow = tblRequests.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a request to update", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String requestId = (String) tblRequests.getValueAt(selectedRow, 0);
+
+        WorkRequest workRequest = organization.getWorkQueue().getWorkRequest(requestId);
+        if (!(workRequest instanceof GateAssignmentRequest)) {
+            JOptionPane.showMessageDialog(null, "Invalid request selected", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        GateAssignmentRequest gateRequest = (GateAssignmentRequest) workRequest;
+        String selectedStatus = (String) cmbStatus.getSelectedItem();
+
+        if (!gateRequest.canTransitionTo(selectedStatus)) {
+            JOptionPane.showMessageDialog(null, "Invalid status transition", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // update status and info
+        gateRequest.setStatus(selectedStatus);
+        gateRequest.setAssignedGate(txtAssignedGate.getText());
+        gateRequest.setTerminalSection(txtTerminalSection.getText());
+        gateRequest.setConflictNotes(txtConflictNotes.getText());
+        gateRequest.setReceiverName(account.getEmployee().getName());
+
+        JOptionPane.showMessageDialog(null, "Request updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        // refresh table
+        populateTable();
+        txtAssignedGate.setText("");
+        txtTerminalSection.setText("");
+        txtConflictNotes.setText("");
+        cmbStatus.setSelectedIndex(0);
+    }//GEN-LAST:event_btnUpdateStatusActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        populateTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnUpdateStatus;
+    private javax.swing.JComboBox<String> cmbStatus;
+    private javax.swing.JLabel lblAssignedGate;
+    private javax.swing.JLabel lblConflictNotes;
+    private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblTerminalSection;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable tblRequests;
+    private javax.swing.JTextField txtAssignedGate;
+    private javax.swing.JTextField txtConflictNotes;
+    private javax.swing.JTextField txtTerminalSection;
     // End of variables declaration//GEN-END:variables
 }
