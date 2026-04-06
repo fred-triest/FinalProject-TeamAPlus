@@ -10,6 +10,7 @@ import Airport.Organization.Organization;
  *
  * @author cohenpowell
  */
+// Handles ground handling services at a gate (refueling, cleaning, catering)
 public class GroundHandlingRequest extends WorkRequest {
 
     private String flightNumber;
@@ -42,10 +43,10 @@ public class GroundHandlingRequest extends WorkRequest {
         this.senderOrganization = senderOrg;
         this.receiverOrganization = receiverOrg;
         this.senderName = senderName;
-        this.receiverName = "";
-        this.crewAssignment = "";
-        this.estimatedCompletionTime = "";
-        this.notes = "";
+        receiverName = "";
+        crewAssignment = "";
+        estimatedCompletionTime = "";
+        notes = "";
 
         setStatus("Dispatched");
         setDescription("Ground handling request for flight " + flightNumber + " at gate " + gateNumber);
@@ -60,8 +61,6 @@ public class GroundHandlingRequest extends WorkRequest {
                 return newStatus.equals("In Progress");
             case "In Progress":
                 return newStatus.equals("Completed");
-            case "Completed":
-                return false;
             default:
                 return false;
         }
@@ -73,8 +72,12 @@ public class GroundHandlingRequest extends WorkRequest {
     public String getGateNumber() { return gateNumber; }
     public void setGateNumber(String gateNumber) { this.gateNumber = gateNumber; }
 
-    public String getAircraftType() { return aircraftType; }
-    public void setAircraftType(String aircraftType) { this.aircraftType = aircraftType; }
+    public String getAircraftType() {
+        return aircraftType;
+    }
+    public void setAircraftType(String aircraftType) {
+        this.aircraftType = aircraftType;
+    }
 
     public boolean isRefuelingRequired() { return refuelingRequired; }
     public void setRefuelingRequired(boolean refuelingRequired) { this.refuelingRequired = refuelingRequired; }
@@ -105,6 +108,6 @@ public class GroundHandlingRequest extends WorkRequest {
 
     @Override
     public String toString() {
-        return "Ground Handling: " + flightNumber + " [" + getStatus() + "]";
+        return flightNumber + " ground handling at gate " + gateNumber;
     }
 }

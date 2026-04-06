@@ -60,22 +60,6 @@ public class SafetyInspectorWorkAreaJPanel extends javax.swing.JPanel {
         }
     }
 
-    private void clearPermitFields() {
-        cmbPermitStatus.setSelectedIndex(0);
-        txtComplianceNotes.setText("");
-        txtConditions.setText("");
-        txtDenialReason.setText("");
-    }
-
-    private void clearIncidentFields() {
-        cmbIncidentType.setSelectedIndex(0);
-        txtLocation.setText("");
-        txtDateTime.setText("");
-        cmbSeverity.setSelectedIndex(0);
-        txtInvolvedParties.setText("");
-        txtIncidentDescription.setText("");
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -303,14 +287,13 @@ public class SafetyInspectorWorkAreaJPanel extends javax.swing.JPanel {
 
         int selectedRow = tblRequests.getSelectedRow();
         if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select a request to process", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pick a request to process");
             return;
         }
 
         String requestId = (String) tblRequests.getValueAt(selectedRow, 0);
         WorkRequest selectedRequest = null;
 
-        // find request by ID
         for (WorkRequest request : organization.getWorkQueue().getWorkQueue()) {
             if (request.getWorkRequestId().equals(requestId)) {
                 selectedRequest = request;
@@ -319,7 +302,7 @@ public class SafetyInspectorWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         if (selectedRequest == null || !(selectedRequest instanceof OperationalPermitRequest)) {
-            JOptionPane.showMessageDialog(null, "Selected request is not a permit request", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "That's not a permit request", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -327,11 +310,10 @@ public class SafetyInspectorWorkAreaJPanel extends javax.swing.JPanel {
         String newStatus = cmbPermitStatus.getSelectedItem().toString();
 
         if (!permitRequest.canTransitionTo(newStatus)) {
-            JOptionPane.showMessageDialog(null, "Invalid status transition", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't change to that status", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // update permit status and details
         permitRequest.setStatus(newStatus);
         permitRequest.setComplianceNotes(txtComplianceNotes.getText());
 
@@ -345,8 +327,11 @@ public class SafetyInspectorWorkAreaJPanel extends javax.swing.JPanel {
 
         permitRequest.setReceiverName(account.getEmployee().getName());
 
-        JOptionPane.showMessageDialog(null, "Permit request processed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-        clearPermitFields();
+        JOptionPane.showMessageDialog(this, "Permit processed");
+        cmbPermitStatus.setSelectedIndex(0);
+        txtComplianceNotes.setText("");
+        txtConditions.setText("");
+        txtDenialReason.setText("");
         populateTable();
     }//GEN-LAST:event_btnProcessPermitActionPerformed
 
@@ -355,7 +340,7 @@ public class SafetyInspectorWorkAreaJPanel extends javax.swing.JPanel {
         if (txtLocation.getText().trim().isEmpty() ||
             txtDateTime.getText().trim().isEmpty() ||
             txtIncidentDescription.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please fill in all required fields", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Fill in all the fields");
             return;
         }
 
@@ -366,7 +351,6 @@ public class SafetyInspectorWorkAreaJPanel extends javax.swing.JPanel {
         String involvedParties = txtInvolvedParties.getText();
         String description = txtIncidentDescription.getText();
 
-        // create incident report
         IncidentReport incidentReport = new IncidentReport(
             incidentType, location, dateTime, severity, involvedParties,
             description, organization, organization, account.getEmployee().getName()
@@ -374,8 +358,13 @@ public class SafetyInspectorWorkAreaJPanel extends javax.swing.JPanel {
 
         organization.getWorkQueue().addWorkRequest(incidentReport);
 
-        JOptionPane.showMessageDialog(null, "Incident report filed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-        clearIncidentFields();
+        JOptionPane.showMessageDialog(this, "Incident filed");
+        txtLocation.setText("");
+        txtDateTime.setText("");
+        txtInvolvedParties.setText("");
+        txtIncidentDescription.setText("");
+        cmbIncidentType.setSelectedIndex(0);
+        cmbSeverity.setSelectedIndex(0);
         populateTable();
     }//GEN-LAST:event_btnFileIncidentActionPerformed
 

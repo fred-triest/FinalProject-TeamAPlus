@@ -10,12 +10,13 @@ import Airport.Organization.Organization;
  *
  * @author cohenpowell
  */
+// Safety incident report - filed by safety inspector, reviewed by compliance officer
 public class IncidentReport extends WorkRequest {
 
-    private String incidentType; // Ramp Collision, FOD, Spill, Runway Incursion, etc.
+    private String incidentType;
     private String location;
     private String dateTime;
-    private String severity; // Low, Medium, High, Critical
+    private String severity;
     private String involvedParties;
     private String incidentDescription;
     private String auditFindings;
@@ -40,9 +41,9 @@ public class IncidentReport extends WorkRequest {
         this.senderOrganization = senderOrg;
         this.receiverOrganization = receiverOrg;
         this.senderName = senderName;
-        this.receiverName = "";
-        this.auditFindings = "";
-        this.violationDetails = "";
+        receiverName = "";
+        auditFindings = "";
+        violationDetails = "";
 
         setStatus("Reported");
         setDescription(severity + " incident: " + incidentType + " at " + location);
@@ -67,10 +68,8 @@ public class IncidentReport extends WorkRequest {
 
     public String getIncidentType() { return incidentType; }
     public void setIncidentType(String incidentType) { this.incidentType = incidentType; }
-
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
-
     public String getDateTime() { return dateTime; }
     public void setDateTime(String dateTime) { this.dateTime = dateTime; }
 
@@ -100,6 +99,6 @@ public class IncidentReport extends WorkRequest {
 
     @Override
     public String toString() {
-        return "Incident: " + incidentType + " [" + getStatus() + "]";
+        return incidentType + " at " + location;
     }
 }

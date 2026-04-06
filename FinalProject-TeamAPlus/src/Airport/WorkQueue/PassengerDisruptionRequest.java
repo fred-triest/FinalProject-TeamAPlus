@@ -10,12 +10,13 @@ import Airport.Organization.Organization;
  *
  * @author cohenpowell
  */
+// When a passenger is affected by cancellation/delay/overbooking, this gets sent up for authorization
 public class PassengerDisruptionRequest extends WorkRequest {
 
-    private String disruptionType; // Cancellation, Delay, Overbooking
+    private String disruptionType;
     private String flightNumber;
     private int affectedPassengers;
-    private String requestedAction; // Rebooking, Hotel Voucher, Compensation, etc.
+    private String requestedAction;
     private double estimatedCost;
     private String passengerDetails;
     private String authorizationNotes;
@@ -41,9 +42,9 @@ public class PassengerDisruptionRequest extends WorkRequest {
         this.senderOrganization = senderOrg;
         this.receiverOrganization = receiverOrg;
         this.senderName = senderName;
-        this.receiverName = "";
-        this.authorizationNotes = "";
-        this.denialReason = "";
+        receiverName = "";
+        authorizationNotes = "";
+        denialReason = "";
 
         setStatus("Escalated");
         setDescription(disruptionType + " disruption on " + flightNumber + " - " + affectedPassengers + " passengers affected");
@@ -57,11 +58,8 @@ public class PassengerDisruptionRequest extends WorkRequest {
             case "Under Review":
                 return newStatus.equals("Authorized") || newStatus.equals("Denied");
             case "Authorized":
-                return newStatus.equals("Resolved");
             case "Denied":
                 return newStatus.equals("Resolved");
-            case "Resolved":
-                return false;
             default:
                 return false;
         }
@@ -69,7 +67,6 @@ public class PassengerDisruptionRequest extends WorkRequest {
 
     public String getDisruptionType() { return disruptionType; }
     public void setDisruptionType(String disruptionType) { this.disruptionType = disruptionType; }
-
     public String getFlightNumber() { return flightNumber; }
     public void setFlightNumber(String flightNumber) { this.flightNumber = flightNumber; }
 
@@ -78,7 +75,6 @@ public class PassengerDisruptionRequest extends WorkRequest {
 
     public String getRequestedAction() { return requestedAction; }
     public void setRequestedAction(String requestedAction) { this.requestedAction = requestedAction; }
-
     public double getEstimatedCost() { return estimatedCost; }
     public void setEstimatedCost(double estimatedCost) { this.estimatedCost = estimatedCost; }
 
@@ -102,6 +98,6 @@ public class PassengerDisruptionRequest extends WorkRequest {
 
     @Override
     public String toString() {
-        return "Disruption: " + disruptionType + " - " + flightNumber + " [" + getStatus() + "]";
+        return disruptionType + " on " + flightNumber + " (" + affectedPassengers + " pax)";
     }
 }

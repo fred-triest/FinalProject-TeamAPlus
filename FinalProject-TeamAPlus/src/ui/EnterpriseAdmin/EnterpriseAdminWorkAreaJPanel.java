@@ -41,8 +41,6 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     public void populateOrganizationComboBox() {
         cmbOrganization.removeAllItems();
-
-        // add all orgs to combo box
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
             cmbOrganization.addItem(org.getName());
         }
@@ -53,14 +51,16 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblEmployees.getModel();
         model.setRowCount(0);
 
-        // populate table with all employees
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
             for (Employee employee : org.getEmployeeDirectory().getEmployeeList()) {
-                Object[] row = new Object[4];
+                Object[] row = new Object[7];
                 row[0] = employee.getEmployeeId();
                 row[1] = employee.getName();
                 row[2] = employee.getEmail();
-                row[3] = org.getName();
+                row[3] = employee.getPhone();
+                row[4] = employee.getTitle();
+                row[5] = employee.getAge();
+                row[6] = org.getName();
                 model.addRow(row);
             }
         }
@@ -88,19 +88,25 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
         txtName = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
+        lblPhone = new javax.swing.JLabel();
+        txtPhone = new javax.swing.JTextField();
+        lblJobTitle = new javax.swing.JLabel();
+        txtJobTitle = new javax.swing.JTextField();
+        lblAge = new javax.swing.JLabel();
+        txtAge = new javax.swing.JTextField();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
         lblTitle.setText("Enterprise Admin Work Area");
 
         tblEmployees.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Employee ID", "Name", "Email", "Organization"
+                "Employee ID", "Name", "Email", "Phone", "Title", "Age", "Organization"
             }
         ));
         scrollPane.setViewportView(tblEmployees);
@@ -141,6 +147,12 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         lblEmail.setText("Email:");
 
+        lblPhone.setText("Phone:");
+
+        lblJobTitle.setText("Title:");
+
+        lblAge.setText("Age:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,12 +166,18 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblOrganization)
                                     .addComponent(lblName)
-                                    .addComponent(lblEmail))
+                                    .addComponent(lblEmail)
+                                    .addComponent(lblPhone)
+                                    .addComponent(lblJobTitle)
+                                    .addComponent(lblAge))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(cmbOrganization, 0, 316, Short.MAX_VALUE)
                                     .addComponent(txtName)
-                                    .addComponent(txtEmail)))
+                                    .addComponent(txtEmail)
+                                    .addComponent(txtPhone)
+                                    .addComponent(txtJobTitle)
+                                    .addComponent(txtAge)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnRefresh)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -184,7 +202,7 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(lblTitle)
                 .addGap(18, 18, 18)
                 .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOrganization)
                     .addComponent(cmbOrganization, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -196,13 +214,25 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmail)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPhone)
+                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblJobTitle)
+                    .addComponent(txtJobTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAge)
+                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRefresh)
                     .addComponent(btnDelete)
                     .addComponent(btnUpdate)
                     .addComponent(btnAdd))
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -216,13 +246,23 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         String name = txtName.getText().trim();
         String email = txtEmail.getText().trim();
+        String phone = txtPhone.getText().trim();
+        String title = txtJobTitle.getText().trim();
+        String ageStr = txtAge.getText().trim();
 
         if (name.isEmpty() || email.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please enter both name and email", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Name and email are required");
             return;
         }
 
-        // find the selected org
+        int age;
+        try {
+            age = Integer.parseInt(ageStr);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Age has to be a number");
+            return;
+        }
+
         String selectedOrgName = (String) cmbOrganization.getSelectedItem();
         Organization selectedOrg = null;
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
@@ -232,13 +272,14 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         }
 
-        // create new employee
-        selectedOrg.getEmployeeDirectory().createEmployee(name, email);
-
+        selectedOrg.getEmployeeDirectory().createEmployee(name, email, phone, title, age);
+        JOptionPane.showMessageDialog(this, "Employee added");
         populateTable();
-        JOptionPane.showMessageDialog(null, "Employee added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
         txtName.setText("");
         txtEmail.setText("");
+        txtPhone.setText("");
+        txtJobTitle.setText("");
+        txtAge.setText("");
 
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -247,27 +288,40 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
         int selectedRow = tblEmployees.getSelectedRow();
 
         if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select an employee to update", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Select an employee first");
             return;
         }
 
         String name = txtName.getText().trim();
         String email = txtEmail.getText().trim();
+        String phone = txtPhone.getText().trim();
+        String title = txtJobTitle.getText().trim();
+        String ageStr = txtAge.getText().trim();
 
         if (name.isEmpty() || email.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please enter both name and email", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Need at least name and email");
+            return;
+        }
+
+        int age;
+        try {
+            age = Integer.parseInt(ageStr);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Age has to be a number");
             return;
         }
 
         String employeeId = (String) tblEmployees.getValueAt(selectedRow, 0);
 
-        // find the employee and update their info
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
             for (Employee employee : org.getEmployeeDirectory().getEmployeeList()) {
                 if (employee.getEmployeeId().equals(employeeId)) {
                     employee.setName(name);
                     employee.setEmail(email);
-                    JOptionPane.showMessageDialog(null, "Employee updated", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    employee.setPhone(phone);
+                    employee.setTitle(title);
+                    employee.setAge(age);
+                    JOptionPane.showMessageDialog(this, "Employee updated");
                     populateTable();
                     return;
                 }
@@ -281,18 +335,17 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
         int selectedRow = tblEmployees.getSelectedRow();
 
         if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select an employee to delete", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pick an employee to delete first");
             return;
         }
 
         String employeeId = (String) tblEmployees.getValueAt(selectedRow, 0);
 
-        // find and delete the employee
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
             for (Employee employee : org.getEmployeeDirectory().getEmployeeList()) {
                 if (employee.getEmployeeId().equals(employeeId)) {
                     org.getEmployeeDirectory().getEmployeeList().remove(employee);
-                    JOptionPane.showMessageDialog(null, "Employee deleted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Deleted");
                     populateTable();
                     return;
                 }
@@ -308,13 +361,19 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbOrganization;
+    private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblJobTitle;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblOrganization;
+    private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTable tblEmployees;
+    private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtJobTitle;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,7 @@
  */
 package Airport.Organization;
 
+import Airport.Enterprise.Enterprise;
 import Airport.Role.OperationsManagerRole;
 import Airport.Role.Role;
 import java.util.ArrayList;
@@ -14,16 +15,17 @@ import java.util.ArrayList;
  */
 public class AirlineOperationsCenter extends Organization {
 
-    public AirlineOperationsCenter() {
+    public AirlineOperationsCenter(Enterprise enterprise) {
 
-        super("Airline Operations Center");
+        // Hard coded name for the Airline Operations Center
+        super("Airline Operations Center", enterprise);
     }
 
-    // Return the roles this org supports
+    // Implement from parent class
     @Override
     public ArrayList<Role> getSupportedRole() {
     ArrayList<Role> roleList = new ArrayList<Role>();
-    roleList.add(new OperationsManagerRole());
+    roleList.add(new OperationsManagerRole(this));
         return roleList;
     }
 }
