@@ -20,8 +20,8 @@ import javax.swing.table.DefaultTableModel;
 public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
     // Fields to store container and system references
-    JPanel container;
-    AirportEcoSystem system;
+    private JPanel container;
+    private AirportEcoSystem system;
     
     /**
      * Creates new form ManageEnterpriseJPanel
@@ -230,6 +230,15 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select an enterprise to delete", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
+        }
+        
+        // Confirm before deleting
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this enterprise?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        
+        if (confirm != JOptionPane.YES_OPTION) {
+            
+            return;
+            
         }
         
         // Get the enterprise ID from the selected row

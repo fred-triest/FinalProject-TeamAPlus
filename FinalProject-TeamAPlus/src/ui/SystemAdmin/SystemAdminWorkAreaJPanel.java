@@ -19,8 +19,8 @@ import javax.swing.JPanel;
  */
 public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
-    JPanel container;
-    AirportEcoSystem system;
+    private JPanel container;
+    private AirportEcoSystem system;
     /**
      * Creates new form SystemAdminWorkAreaJPanel
      */
@@ -134,7 +134,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         container.add("manageEnterpriseJPanel", manageEnterpriseJPanel);
         
         CardLayout layout = (CardLayout) container.getLayout();
-        layout.next(container);
+        layout.show(container, "manageEnterpriseJPanel");
 
     }//GEN-LAST:event_btnManageEnterprisesActionPerformed
 
