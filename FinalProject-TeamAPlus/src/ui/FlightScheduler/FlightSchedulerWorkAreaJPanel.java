@@ -67,13 +67,13 @@ public class FlightSchedulerWorkAreaJPanel extends javax.swing.JPanel {
         }
     }
 
-    public Organization findOrganization(String enterpriseName, String orgName) {
-        for (Network network : airport.getNetworkList()) {
-            for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
-                if (ent.getName().equals(enterpriseName)) {
-                    for (Organization org : ent.getOrganizationDirectory().getOrganizationList()) {
-                        if (org.getName().equals(orgName)) {
-                            return org;
+    private Organization findOrganization(String enterpriseName, String orgName) {
+        for (Network n : airport.getNetworkList()) {
+            for (Enterprise enterprise1 : n.getEnterpriseDirectory().getEnterpriseList()) {
+                if (enterprise1.getName().equals(enterpriseName)) {
+                    for (Organization o : enterprise1.getOrganizationDirectory().getOrganizationList()) {
+                        if (o.getName().equals(orgName)) {
+                            return o;
                         }
                     }
                 }
@@ -296,13 +296,13 @@ public class FlightSchedulerWorkAreaJPanel extends javax.swing.JPanel {
         String requestedGate = txtRequestedGate.getText().trim();
 
         if (flightNumber.isEmpty() || aircraftType.isEmpty() || scheduledTime.isEmpty() || requestedGate.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please fill in all gate assignment fields", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Fill in all fields first");
             return;
         }
 
         Organization receiverOrg = findOrganization("New York Port Authority", "Gate Terminal Management Office");
         if (receiverOrg == null) {
-            JOptionPane.showMessageDialog(null, "Receiver organization not found", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't find receiver org", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -318,11 +318,12 @@ public class FlightSchedulerWorkAreaJPanel extends javax.swing.JPanel {
             account.getEmployee().getName()
         );
 
-        // add to both work queues
+        // add to both queues so both sides can see it
         organization.getWorkQueue().addWorkRequest(request);
         receiverOrg.getWorkQueue().addWorkRequest(request);
+        //System.out.println("sent gate request to " + receiverOrg.getName());
 
-        JOptionPane.showMessageDialog(null, "Gate assignment request submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Gate request submitted!");
         txtFlightNumber.setText("");
         txtAircraftType.setText("");
         txtScheduledTime.setText("");
@@ -336,13 +337,13 @@ public class FlightSchedulerWorkAreaJPanel extends javax.swing.JPanel {
         String aircraftType = txtGHAircraftType.getText().trim();
 
         if (flightNumber.isEmpty() || gateNumber.isEmpty() || aircraftType.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please fill in all ground handling fields", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please fill in all ground handling fields", "Missing Info", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         Organization receiverOrg = findOrganization("Ground Master Services", "Ramp Refueling Unit");
         if (receiverOrg == null) {
-            JOptionPane.showMessageDialog(null, "Receiver organization not found", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't find ground services org", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -358,11 +359,11 @@ public class FlightSchedulerWorkAreaJPanel extends javax.swing.JPanel {
             account.getEmployee().getName()
         );
 
-        // add request to both work queues
+        // send to both queues
         organization.getWorkQueue().addWorkRequest(request);
         receiverOrg.getWorkQueue().addWorkRequest(request);
 
-        JOptionPane.showMessageDialog(null, "Ground handling request submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Ground handling request sent");
         txtGHFlightNumber.setText("");
         txtGateNumber.setText("");
         txtGHAircraftType.setText("");

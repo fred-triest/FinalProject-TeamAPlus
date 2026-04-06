@@ -26,12 +26,18 @@
                                   <Component id="lblOrganization" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblEmail" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblPhone" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblJobTitle" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblAge" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="cmbOrganization" pref="316" max="32767" attributes="0"/>
                                   <Component id="txtName" max="32767" attributes="0"/>
                                   <Component id="txtEmail" max="32767" attributes="0"/>
+                                  <Component id="txtPhone" max="32767" attributes="0"/>
+                                  <Component id="txtJobTitle" max="32767" attributes="0"/>
+                                  <Component id="txtAge" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -66,7 +72,7 @@
               <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="scrollPane" min="-2" pref="190" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblOrganization" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cmbOrganization" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -81,6 +87,21 @@
                   <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblPhone" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPhone" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblJobTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtJobTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblAge" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtAge" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnRefresh" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -88,7 +109,7 @@
                   <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAdd" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="237" max="32767" attributes="0"/>
+              <EmptySpace pref="127" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -109,10 +130,13 @@
         <Component class="javax.swing.JTable" name="tblEmployees">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
+              <Table columnCount="7" rowCount="4">
                 <Column editable="true" title="Employee ID" type="java.lang.Object"/>
                 <Column editable="true" title="Name" type="java.lang.Object"/>
                 <Column editable="true" title="Email" type="java.lang.Object"/>
+                <Column editable="true" title="Phone" type="java.lang.Object"/>
+                <Column editable="true" title="Title" type="java.lang.Object"/>
+                <Column editable="true" title="Age" type="java.lang.Object"/>
                 <Column editable="true" title="Organization" type="java.lang.Object"/>
               </Table>
             </Property>
@@ -185,6 +209,27 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmail">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblPhone">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Phone:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtPhone">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblJobTitle">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Title:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtJobTitle">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAge">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Age:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtAge">
     </Component>
   </SubComponents>
 </Form>

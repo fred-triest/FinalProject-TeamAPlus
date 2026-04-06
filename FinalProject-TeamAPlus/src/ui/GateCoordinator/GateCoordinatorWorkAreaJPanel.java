@@ -188,7 +188,7 @@ public class GateCoordinatorWorkAreaJPanel extends javax.swing.JPanel {
         int selectedRow = tblRequests.getSelectedRow();
 
         if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select a request to update", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Select a request first");
             return;
         }
 
@@ -196,7 +196,7 @@ public class GateCoordinatorWorkAreaJPanel extends javax.swing.JPanel {
 
         WorkRequest workRequest = organization.getWorkQueue().getWorkRequest(requestId);
         if (!(workRequest instanceof GateAssignmentRequest)) {
-            JOptionPane.showMessageDialog(null, "Invalid request selected", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "That's not a gate assignment request", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -204,20 +204,17 @@ public class GateCoordinatorWorkAreaJPanel extends javax.swing.JPanel {
         String selectedStatus = (String) cmbStatus.getSelectedItem();
 
         if (!gateRequest.canTransitionTo(selectedStatus)) {
-            JOptionPane.showMessageDialog(null, "Invalid status transition", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't change to that status from current state", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // update status and info
         gateRequest.setStatus(selectedStatus);
         gateRequest.setAssignedGate(txtAssignedGate.getText());
         gateRequest.setTerminalSection(txtTerminalSection.getText());
         gateRequest.setConflictNotes(txtConflictNotes.getText());
         gateRequest.setReceiverName(account.getEmployee().getName());
 
-        JOptionPane.showMessageDialog(null, "Request updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-        // refresh table
+        JOptionPane.showMessageDialog(this, "Updated!");
         populateTable();
         txtAssignedGate.setText("");
         txtTerminalSection.setText("");

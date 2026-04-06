@@ -60,13 +60,13 @@ public class PassengerServicesAgentWorkAreaJPanel extends javax.swing.JPanel {
         }
     }
 
-    public Organization findOrganization(String enterpriseName, String orgName) {
-        for (Network network : airport.getNetworkList()) {
-            for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
-                if (ent.getName().equals(enterpriseName)) {
-                    for (Organization org : ent.getOrganizationDirectory().getOrganizationList()) {
-                        if (org.getName().equals(orgName)) {
-                            return org;
+    private Organization findOrganization(String enterpriseName, String orgName) {
+        for (Network n : airport.getNetworkList()) {
+            for (Enterprise enterprise1 : n.getEnterpriseDirectory().getEnterpriseList()) {
+                if (enterprise1.getName().equals(enterpriseName)) {
+                    for (Organization o : enterprise1.getOrganizationDirectory().getOrganizationList()) {
+                        if (o.getName().equals(orgName)) {
+                            return o;
                         }
                     }
                 }
@@ -229,35 +229,33 @@ public class PassengerServicesAgentWorkAreaJPanel extends javax.swing.JPanel {
         String passengerDetails = txtPassengerDetails.getText().trim();
 
         if (flightNumber.isEmpty() || requestedAction.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please fill in all required fields", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Flight number and action are required");
             return;
         }
 
-        // parse the numbers
         int affectedPassengers;
         double estimatedCost;
         try {
             affectedPassengers = Integer.parseInt(txtAffectedPassengers.getText().trim());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Affected passengers must be a number", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Enter a valid number for passengers");
             return;
         }
         try {
             estimatedCost = Double.parseDouble(txtEstimatedCost.getText().trim());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Estimated cost must be a number", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cost needs to be a number");
             return;
         }
 
         Organization receiverOrg = findOrganization("Japan Airlines", "Flight Operations Division");
         if (receiverOrg == null) {
-            JOptionPane.showMessageDialog(null, "Could not find Flight Operations Division", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Couldn't find Flight Operations org");
             return;
         }
 
         String disruptionType = (String) cmbDisruptionType.getSelectedItem();
 
-        // create and submit the request
         PassengerDisruptionRequest request = new PassengerDisruptionRequest(
             disruptionType, flightNumber, affectedPassengers, requestedAction,
             estimatedCost, passengerDetails, organization, receiverOrg,
@@ -267,9 +265,7 @@ public class PassengerServicesAgentWorkAreaJPanel extends javax.swing.JPanel {
         organization.getWorkQueue().addWorkRequest(request);
         receiverOrg.getWorkQueue().addWorkRequest(request);
 
-        JOptionPane.showMessageDialog(null, "Disruption request submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-        // clear fields
+        JOptionPane.showMessageDialog(this, "Request submitted", "Done", JOptionPane.INFORMATION_MESSAGE);
         txtFlightNumber.setText("");
         txtAffectedPassengers.setText("");
         txtRequestedAction.setText("");

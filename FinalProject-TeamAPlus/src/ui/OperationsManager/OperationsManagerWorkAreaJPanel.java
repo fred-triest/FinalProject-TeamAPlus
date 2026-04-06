@@ -66,13 +66,13 @@ public class OperationsManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
     }
 
-    public Organization findOrganization(String enterpriseName, String orgName) {
-        for (Network network : airport.getNetworkList()) {
-            for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
-                if (ent.getName().equals(enterpriseName)) {
-                    for (Organization org : ent.getOrganizationDirectory().getOrganizationList()) {
-                        if (org.getName().equals(orgName)) {
-                            return org;
+    private Organization findOrganization(String enterpriseName, String orgName) {
+        for (Network n : airport.getNetworkList()) {
+            for (Enterprise enterprise1 : n.getEnterpriseDirectory().getEnterpriseList()) {
+                if (enterprise1.getName().equals(enterpriseName)) {
+                    for (Organization o : enterprise1.getOrganizationDirectory().getOrganizationList()) {
+                        if (o.getName().equals(orgName)) {
+                            return o;
                         }
                     }
                 }
@@ -245,13 +245,13 @@ public class OperationsManagerWorkAreaJPanel extends javax.swing.JPanel {
         String justification = txtJustification.getText().trim();
 
         if (permitType == null || permitType.isEmpty() || routeDetails.isEmpty() || justification.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill in all permit fields", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Fill in all permit fields", "Missing Info", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         Organization receiverOrg = findOrganization("New York Port Authority", "Safety Compliance Bureau");
         if (receiverOrg == null) {
-            JOptionPane.showMessageDialog(this, "Safety Compliance Bureau not found", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't find Safety Compliance Bureau");
             return;
         }
 
@@ -261,7 +261,7 @@ public class OperationsManagerWorkAreaJPanel extends javax.swing.JPanel {
         organization.getWorkQueue().addWorkRequest(request);
         receiverOrg.getWorkQueue().addWorkRequest(request);
 
-        JOptionPane.showMessageDialog(this, "Operational Permit Request submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Permit submitted!");
         txtRouteDetails.setText("");
         txtJustification.setText("");
         cmbPermitType.setSelectedIndex(0);
@@ -271,7 +271,7 @@ public class OperationsManagerWorkAreaJPanel extends javax.swing.JPanel {
     private void btnProcessDisruptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessDisruptionActionPerformed
         int selectedRow = tblRequests.getSelectedRow();
         if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(this, "Please select a request to process", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Select a disruption request first");
             return;
         }
 
@@ -279,7 +279,6 @@ public class OperationsManagerWorkAreaJPanel extends javax.swing.JPanel {
         String newStatus = (String) cmbDisruptionStatus.getSelectedItem();
         String authNotes = txtAuthNotes.getText().trim();
 
-        // find the request
         WorkRequest request = null;
         for (WorkRequest wr : organization.getWorkQueue().getWorkQueue()) {
             if (wr.getWorkRequestId().equals(requestId)) {
@@ -289,13 +288,13 @@ public class OperationsManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         if (request == null || !(request instanceof PassengerDisruptionRequest)) {
-            JOptionPane.showMessageDialog(this, "Selected request is not a Passenger Disruption Request", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "That's not a disruption request", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         PassengerDisruptionRequest disruptionRequest = (PassengerDisruptionRequest) request;
         if (!disruptionRequest.canTransitionTo(newStatus)) {
-            JOptionPane.showMessageDialog(this, "Cannot transition to status: " + newStatus, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't change to " + newStatus + " right now", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -307,7 +306,7 @@ public class OperationsManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
         disruptionRequest.setReceiverName(account.getEmployee() != null ? account.getEmployee().getName() : "Operations Manager");
 
-        JOptionPane.showMessageDialog(this, "Passenger Disruption Request processed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Disruption request processed");
         txtAuthNotes.setText("");
         cmbDisruptionStatus.setSelectedIndex(0);
         populateTable();

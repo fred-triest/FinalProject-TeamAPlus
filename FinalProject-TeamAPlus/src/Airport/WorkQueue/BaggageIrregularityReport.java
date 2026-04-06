@@ -10,9 +10,10 @@ import Airport.Organization.Organization;
  *
  * @author cohenpowell
  */
+// For tracking lost/damaged/misrouted bags within ground services
 public class BaggageIrregularityReport extends WorkRequest {
 
-    private String irregularityType; // Lost, Damaged, Misrouted
+    private String irregularityType;
     private String baggageTagId;
     private String flightNumber;
     private String passengerName;
@@ -35,13 +36,12 @@ public class BaggageIrregularityReport extends WorkRequest {
         this.flightNumber = flightNumber;
         this.passengerName = passengerName;
         this.lastKnownLocation = lastKnownLocation;
+        resolution = "";
+        escalatedToAirline = false;
         this.senderOrganization = senderOrg;
         this.receiverOrganization = receiverOrg;
         this.senderName = senderName;
-        this.receiverName = "";
-        this.resolution = "";
-        this.escalatedToAirline = false;
-
+        receiverName = "";
         setStatus("Filed");
         setDescription(irregularityType + " baggage report for " + passengerName + " on " + flightNumber);
     }
@@ -55,8 +55,6 @@ public class BaggageIrregularityReport extends WorkRequest {
                 return newStatus.equals("Escalated") || newStatus.equals("Resolved");
             case "Escalated":
                 return newStatus.equals("Resolved");
-            case "Resolved":
-                return false;
             default:
                 return false;
         }
@@ -94,6 +92,6 @@ public class BaggageIrregularityReport extends WorkRequest {
 
     @Override
     public String toString() {
-        return "Baggage: " + irregularityType + " - " + baggageTagId + " [" + getStatus() + "]";
+        return irregularityType + " baggage - tag " + baggageTagId;
     }
 }

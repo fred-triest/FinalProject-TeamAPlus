@@ -179,13 +179,12 @@ public class ComplianceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         int selectedRow = tblRequests.getSelectedRow();
 
         if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select an incident to process", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Select an incident first");
             return;
         }
 
         String requestId = (String) tblRequests.getValueAt(selectedRow, 0);
 
-        // find the incident report
         IncidentReport report = null;
         for (WorkRequest request : organization.getWorkQueue().getWorkQueue()) {
             if (request instanceof IncidentReport && request.getWorkRequestId().equals(requestId)) {
@@ -195,24 +194,23 @@ public class ComplianceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         if (report == null) {
-            JOptionPane.showMessageDialog(null, "Incident not found in work queue", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Couldn't find that incident", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         String newStatus = (String) cmbStatus.getSelectedItem();
 
         if (!report.canTransitionTo(newStatus)) {
-            JOptionPane.showMessageDialog(null, "Invalid status transition", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't do that status change", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // update incident status and findings
         report.setStatus(newStatus);
         report.setAuditFindings(txtAuditFindings.getText());
         report.setViolationDetails(txtViolationDetails.getText());
         report.setReceiverName(account.getEmployee().getName());
 
-        JOptionPane.showMessageDialog(null, "Incident processed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Incident processed");
         populateTable();
         txtAuditFindings.setText("");
         txtViolationDetails.setText("");

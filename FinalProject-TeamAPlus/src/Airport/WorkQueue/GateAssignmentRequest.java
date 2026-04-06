@@ -10,12 +10,13 @@ import Airport.Organization.Organization;
  *
  * @author cohenpowell
  */
+// Gate assignment request - sent from flight scheduler to gate coordinator
 public class GateAssignmentRequest extends WorkRequest {
 
     private String flightNumber;
     private String aircraftType;
     private String scheduledTime;
-    private String flightType; // arrival or departure
+    private String flightType;
 
     private String requestedGate;
     private String assignedGate;
@@ -37,16 +38,16 @@ public class GateAssignmentRequest extends WorkRequest {
         this.scheduledTime = scheduledTime;
         this.flightType = flightType;
         this.requestedGate = requestedGate;
+        assignedGate = "";
+        terminalSection = "";
+        conflictNotes = "";
+
         this.senderOrganization = senderOrg;
         this.receiverOrganization = receiverOrg;
         this.senderName = senderName;
-        this.receiverName = "";
-        this.conflictNotes = "";
-        this.assignedGate = "";
-        this.terminalSection = "";
-
+        receiverName = "";
         setStatus("Submitted");
-        setDescription("Gate assignment request for flight " + flightNumber);
+        setDescription("Gate assignment for " + flightNumber);
     }
 
     public boolean canTransitionTo(String newStatus) {
@@ -102,6 +103,6 @@ public class GateAssignmentRequest extends WorkRequest {
 
     @Override
     public String toString() {
-        return "Gate Request: " + flightNumber + " [" + getStatus() + "]";
+        return "Gate Assignment - " + flightNumber;
     }
 }

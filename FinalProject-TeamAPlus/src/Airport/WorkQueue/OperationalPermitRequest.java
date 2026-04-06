@@ -10,13 +10,14 @@ import Airport.Organization.Organization;
  *
  * @author cohenpowell
  */
+// Permit request for new routes or special operations
 public class OperationalPermitRequest extends WorkRequest {
 
-    private String permitType; // New Route, Off-Hours Operation, New Aircraft Type
+    private String permitType;
     private String routeDetails;
     private String justification;
     private String complianceNotes;
-    private String conditions; // conditions for conditional approval
+    private String conditions;
     private String denialReason;
 
     private Organization senderOrganization;
@@ -34,10 +35,10 @@ public class OperationalPermitRequest extends WorkRequest {
         this.senderOrganization = senderOrg;
         this.receiverOrganization = receiverOrg;
         this.senderName = senderName;
-        this.receiverName = "";
-        this.complianceNotes = "";
-        this.conditions = "";
-        this.denialReason = "";
+        receiverName = "";
+        complianceNotes = "";
+        conditions = "";
+        denialReason = "";
 
         setStatus("Submitted");
         setDescription(permitType + " permit request: " + routeDetails);
@@ -88,6 +89,6 @@ public class OperationalPermitRequest extends WorkRequest {
 
     @Override
     public String toString() {
-        return "Permit: " + permitType + " [" + getStatus() + "]";
+        return permitType + " permit - " + routeDetails;
     }
 }
