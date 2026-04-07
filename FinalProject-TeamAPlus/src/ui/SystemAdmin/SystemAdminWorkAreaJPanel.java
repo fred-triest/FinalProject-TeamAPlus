@@ -93,6 +93,11 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnManageEnterpriseAdmins.setText("Manage Enterprise Admins");
+        btnManageEnterpriseAdmins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageEnterpriseAdminsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -137,6 +142,15 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         layout.show(container, "manageEnterpriseJPanel");
 
     }//GEN-LAST:event_btnManageEnterprisesActionPerformed
+
+    private void btnManageEnterpriseAdminsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageEnterpriseAdminsActionPerformed
+        
+        ManageEnterpriseAdminJPanel manageEnterpriseAdminJPanel = new ManageEnterpriseAdminJPanel(container,system);
+        container.add("manageEnterpriseAdminJPanel", manageEnterpriseAdminJPanel);
+        
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.show(container, "manageEnterpriseAdminJPanel");
+    }//GEN-LAST:event_btnManageEnterpriseAdminsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
