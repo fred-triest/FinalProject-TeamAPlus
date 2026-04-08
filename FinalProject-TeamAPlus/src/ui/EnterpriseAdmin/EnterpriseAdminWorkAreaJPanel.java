@@ -5,16 +5,19 @@
 package ui.EnterpriseAdmin;
 
 import Airport.AirportEcoSystem;
+import Airport.Employee.Employee;
 import Airport.Enterprise.Enterprise;
 import Airport.Organization.Organization;
 import Airport.Role.EnterpriseAdminRole;
 import Airport.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author fredtriest
+ * @author cohenpowell
  */
 public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -23,6 +26,12 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
     private Organization organization;
     private Enterprise enterprise;
     private AirportEcoSystem airport;
+    JPanel container;
+    UserAccount account;
+    Organization organization;
+    Enterprise enterprise;
+    AirportEcoSystem airport;
+
     /**
      * Creates new form EnterpriseAdminWorkAreaJPanel
      */
@@ -33,6 +42,35 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.airport = airport;
         this.enterprise = ((EnterpriseAdminRole) account.getRole()).getEnterprise();
+        populateOrganizationComboBox();
+        populateTable();
+    }
+
+    public void populateOrganizationComboBox() {
+        cmbOrganization.removeAllItems();
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            cmbOrganization.addItem(org.getName());
+        }
+    }
+
+    public void populateTable() {
+
+        DefaultTableModel model = (DefaultTableModel) tblEmployees.getModel();
+        model.setRowCount(0);
+
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            for (Employee employee : org.getEmployeeDirectory().getEmployeeList()) {
+                Object[] row = new Object[7];
+                row[0] = employee.getEmployeeId();
+                row[1] = employee.getName();
+                row[2] = employee.getEmail();
+                row[3] = employee.getPhone();
+                row[4] = employee.getTitle();
+                row[5] = employee.getAge();
+                row[6] = org.getName();
+                model.addRow(row);
+            }
+        }
     }
 
     /**
@@ -47,9 +85,82 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
         lblTitle = new javax.swing.JLabel();
         btnManageOrganizations = new javax.swing.JButton();
         btnManageUsers = new javax.swing.JButton();
+        scrollPane = new javax.swing.JScrollPane();
+        tblEmployees = new javax.swing.JTable();
+        btnRefresh = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        lblOrganization = new javax.swing.JLabel();
+        cmbOrganization = new javax.swing.JComboBox<>();
+        lblName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        lblEmail = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        lblPhone = new javax.swing.JLabel();
+        txtPhone = new javax.swing.JTextField();
+        lblJobTitle = new javax.swing.JLabel();
+        txtJobTitle = new javax.swing.JTextField();
+        lblAge = new javax.swing.JLabel();
+        txtAge = new javax.swing.JTextField();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        lblTitle.setText("Enterprise Admin Work Area ");
+        lblTitle.setText("Enterprise Admin Work Area");
+
+        tblEmployees.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Employee ID", "Name", "Email", "Phone", "Title", "Age", "Organization"
+            }
+        ));
+        scrollPane.setViewportView(tblEmployees);
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        lblOrganization.setText("Organization:");
+
+        cmbOrganization.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblName.setText("Name:");
+
+        lblEmail.setText("Email:");
+
+        lblPhone.setText("Phone:");
+
+        lblJobTitle.setText("Title:");
+
+        lblAge.setText("Age:");
 
         btnManageOrganizations.setText("Manage Organizations");
         btnManageOrganizations.addActionListener(new java.awt.event.ActionListener() {
@@ -70,7 +181,40 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(357, 357, 357)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblOrganization)
+                                    .addComponent(lblName)
+                                    .addComponent(lblEmail)
+                                    .addComponent(lblPhone)
+                                    .addComponent(lblJobTitle)
+                                    .addComponent(lblAge))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cmbOrganization, 0, 316, Short.MAX_VALUE)
+                                    .addComponent(txtName)
+                                    .addComponent(txtEmail)
+                                    .addComponent(txtPhone)
+                                    .addComponent(txtJobTitle)
+                                    .addComponent(txtAge)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnRefresh)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnDelete)
+                                .addGap(51, 51, 51)
+                                .addComponent(btnUpdate)
+                                .addGap(51, 51, 51)
+                                .addComponent(btnAdd))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 94, Short.MAX_VALUE)
+                        .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(432, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(153, 153, 153)
                 .addComponent(lblTitle)
                 .addContainerGap(380, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -79,11 +223,12 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(btnManageUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnManageOrganizations, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(426, 426, 426))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(42, 42, 42)
                 .addComponent(lblTitle)
                 .addGap(61, 61, 61)
                 .addComponent(btnManageOrganizations, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -115,6 +260,180 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManageOrganizations;
     private javax.swing.JButton btnManageUsers;
+                .addGap(18, 18, 18)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblOrganization)
+                    .addComponent(cmbOrganization, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblName)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmail)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPhone)
+                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblJobTitle)
+                    .addComponent(txtJobTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAge)
+                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRefresh)
+                    .addComponent(btnDelete)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnAdd))
+                .addContainerGap(127, Short.MAX_VALUE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+
+        populateTable();
+
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+
+        String name = txtName.getText().trim();
+        String email = txtEmail.getText().trim();
+        String phone = txtPhone.getText().trim();
+        String title = txtJobTitle.getText().trim();
+        String ageStr = txtAge.getText().trim();
+
+        if (name.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name and email are required");
+            return;
+        }
+
+        int age;
+        try {
+            age = Integer.parseInt(ageStr);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Age has to be a number");
+            return;
+        }
+
+        String selectedOrgName = (String) cmbOrganization.getSelectedItem();
+        Organization selectedOrg = null;
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (org.getName().equals(selectedOrgName)) {
+                selectedOrg = org;
+                break;
+            }
+        }
+
+        selectedOrg.getEmployeeDirectory().createEmployee(name, email, phone, title, age);
+        JOptionPane.showMessageDialog(this, "Employee added");
+        populateTable();
+        txtName.setText("");
+        txtEmail.setText("");
+        txtPhone.setText("");
+        txtJobTitle.setText("");
+        txtAge.setText("");
+
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+
+        int selectedRow = tblEmployees.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Select an employee first");
+            return;
+        }
+
+        String name = txtName.getText().trim();
+        String email = txtEmail.getText().trim();
+        String phone = txtPhone.getText().trim();
+        String title = txtJobTitle.getText().trim();
+        String ageStr = txtAge.getText().trim();
+
+        if (name.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Need at least name and email");
+            return;
+        }
+
+        int age;
+        try {
+            age = Integer.parseInt(ageStr);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Age has to be a number");
+            return;
+        }
+
+        String employeeId = (String) tblEmployees.getValueAt(selectedRow, 0);
+
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            for (Employee employee : org.getEmployeeDirectory().getEmployeeList()) {
+                if (employee.getEmployeeId().equals(employeeId)) {
+                    employee.setName(name);
+                    employee.setEmail(email);
+                    employee.setPhone(phone);
+                    employee.setTitle(title);
+                    employee.setAge(age);
+                    JOptionPane.showMessageDialog(this, "Employee updated");
+                    populateTable();
+                    return;
+                }
+            }
+        }
+
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+
+        int selectedRow = tblEmployees.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Pick an employee to delete first");
+            return;
+        }
+
+        String employeeId = (String) tblEmployees.getValueAt(selectedRow, 0);
+
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            for (Employee employee : org.getEmployeeDirectory().getEmployeeList()) {
+                if (employee.getEmployeeId().equals(employeeId)) {
+                    org.getEmployeeDirectory().getEmployeeList().remove(employee);
+                    JOptionPane.showMessageDialog(this, "Deleted");
+                    populateTable();
+                    return;
+                }
+            }
+        }
+
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> cmbOrganization;
+    private javax.swing.JLabel lblAge;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblJobTitle;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblOrganization;
+    private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable tblEmployees;
+    private javax.swing.JTextField txtAge;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtJobTitle;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables
 }

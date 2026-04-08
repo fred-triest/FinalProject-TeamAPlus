@@ -10,10 +10,12 @@ import Airport.Enterprise.JapanAirlines;
 import Airport.Enterprise.NewYorkPortAuthority;
 import Airport.Network.Network;
 import Airport.Organization.BaggageCabinServicesUnit;
+import Airport.Organization.AirlineOperationsCenter;
 import Airport.Organization.FlightOperationsDivision;
 import Airport.Organization.GateTerminalManagementOffice;
 import Airport.Organization.PassengerServicesDepartment;
 import Airport.Organization.RampRefuelingUnit;
+import Airport.Organization.RegulatoryAffairsDivision;
 import Airport.Organization.SafetyComplianceBureau;
 import Airport.Role.BaggageHandlerRole;
 import Airport.Role.ComplianceOfficerRole;
@@ -30,6 +32,7 @@ import Airport.UserAccount.UserAccount;
 /**
  *
  * @author fredtriest
+ * @author cohenpowell
  */
 public class ConfigureASystem {
     
@@ -52,11 +55,13 @@ public class ConfigureASystem {
         NewYorkPortAuthority newYorkPortAuthority = (NewYorkPortAuthority) network.getEnterpriseDirectory().findEnterprise("New York Port Authority");
         GroundMasterServices groundMasterServices = (GroundMasterServices) network.getEnterpriseDirectory().findEnterprise("Ground Master Services");
         
-        // Add organizations to respective enterprises
+        // Add orgs to each enterprise
         japanAirlines.getOrganizationDirectory().addOrganization(new FlightOperationsDivision(japanAirlines));
         japanAirlines.getOrganizationDirectory().addOrganization(new PassengerServicesDepartment(japanAirlines));
+        japanAirlines.getOrganizationDirectory().addOrganization(new AirlineOperationsCenter(japanAirlines));
         newYorkPortAuthority.getOrganizationDirectory().addOrganization(new GateTerminalManagementOffice(newYorkPortAuthority));
         newYorkPortAuthority.getOrganizationDirectory().addOrganization(new SafetyComplianceBureau(newYorkPortAuthority));
+        newYorkPortAuthority.getOrganizationDirectory().addOrganization(new RegulatoryAffairsDivision(newYorkPortAuthority));
         groundMasterServices.getOrganizationDirectory().addOrganization(new RampRefuelingUnit(groundMasterServices));
         groundMasterServices.getOrganizationDirectory().addOrganization(new BaggageCabinServicesUnit(groundMasterServices));
         
