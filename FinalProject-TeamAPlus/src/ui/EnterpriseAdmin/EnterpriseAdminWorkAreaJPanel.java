@@ -8,7 +8,9 @@ import Airport.AirportEcoSystem;
 import Airport.Employee.Employee;
 import Airport.Enterprise.Enterprise;
 import Airport.Organization.Organization;
+import Airport.Role.EnterpriseAdminRole;
 import Airport.UserAccount.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +21,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
 
+    private JPanel container;
+    private UserAccount account;
+    private Organization organization;
+    private Enterprise enterprise;
+    private AirportEcoSystem airport;
     JPanel container;
     UserAccount account;
     Organization organization;
@@ -28,13 +35,13 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form EnterpriseAdminWorkAreaJPanel
      */
-    public EnterpriseAdminWorkAreaJPanel(JPanel container, UserAccount account, Organization organization, Enterprise enterprise, AirportEcoSystem airport) {
+    public EnterpriseAdminWorkAreaJPanel(JPanel container, UserAccount account, Organization organization, AirportEcoSystem airport) {
         initComponents();
         this.container = container;
         this.account = account;
         this.organization = organization;
-        this.enterprise = enterprise;
         this.airport = airport;
+        this.enterprise = ((EnterpriseAdminRole) account.getRole()).getEnterprise();
         populateOrganizationComboBox();
         populateTable();
     }
@@ -76,6 +83,8 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         lblTitle = new javax.swing.JLabel();
+        btnManageOrganizations = new javax.swing.JButton();
+        btnManageUsers = new javax.swing.JButton();
         scrollPane = new javax.swing.JScrollPane();
         tblEmployees = new javax.swing.JTable();
         btnRefresh = new javax.swing.JButton();
@@ -153,6 +162,20 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         lblAge.setText("Age:");
 
+        btnManageOrganizations.setText("Manage Organizations");
+        btnManageOrganizations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageOrganizationsActionPerformed(evt);
+            }
+        });
+
+        btnManageUsers.setText("Manage Users");
+        btnManageUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageUsersActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -193,6 +216,13 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(153, 153, 153)
                 .addComponent(lblTitle)
+                .addContainerGap(380, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnManageUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnManageOrganizations, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(426, 426, 426))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -200,6 +230,36 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(lblTitle)
+                .addGap(61, 61, 61)
+                .addComponent(btnManageOrganizations, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnManageUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(592, Short.MAX_VALUE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnManageOrganizationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageOrganizationsActionPerformed
+        
+        ManageOrganizationsJPanel manageOrganizationsJPanel = new ManageOrganizationsJPanel(container, enterprise, airport);
+        container.add("manageOrganizationsJPanel", manageOrganizationsJPanel);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.show(container, "manageOrganizationsJPanel");
+
+    }//GEN-LAST:event_btnManageOrganizationsActionPerformed
+
+    private void btnManageUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageUsersActionPerformed
+        
+        ManageUsersJPanel manageUsersJPanel = new ManageUsersJPanel(container, enterprise, airport);
+        container.add("manageUsersJPanel", manageUsersJPanel);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.show(container, "manageUsersJPanel");
+
+    }//GEN-LAST:event_btnManageUsersActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnManageOrganizations;
+    private javax.swing.JButton btnManageUsers;
                 .addGap(18, 18, 18)
                 .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)

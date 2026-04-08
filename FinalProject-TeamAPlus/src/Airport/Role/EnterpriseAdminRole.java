@@ -39,7 +39,7 @@ public class EnterpriseAdminRole extends Role {
             Enterprise enterprise,
             AirportEcoSystem airport) {
             
-            return new EnterpriseAdminWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise, airport);    
+            return new EnterpriseAdminWorkAreaJPanel(userProcessContainer, userAccount, organization, airport);    
     }
     
     // Display name for panels
