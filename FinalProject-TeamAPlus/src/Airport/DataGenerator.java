@@ -37,6 +37,9 @@ public class DataGenerator {
             String email = faker.internet().emailAddress();
 
             Employee emp = baggageUnit.getEmployeeDirectory().createEmployee(name, email);
+            
+            System.out.println("Baggage Handler created: " + name + " | " + email);
+            
             baggageUnit.getUserAccountDirectory().createUserAccount("baggage" + i, "password", emp, new BaggageHandlerRole());
         }
 
@@ -48,6 +51,9 @@ public class DataGenerator {
             String email = faker.internet().emailAddress();
 
             Employee emp = flightOps.getEmployeeDirectory().createEmployee(name, email);
+            
+            System.out.println("Flight Scheduler created: " + name + " | " + email);  // ADD THIS
+            
             flightOps.getUserAccountDirectory().createUserAccount("scheduler" + i, "password", emp, new FlightSchedulerRole());
         }
     }
