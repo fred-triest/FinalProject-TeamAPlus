@@ -104,6 +104,8 @@ public class ConfigureASystem {
         Employee baggageHandlerEmployee = baggageServices.getEmployeeDirectory().createEmployee("baggageHandler", "baggagehandler@groundmasterservices.com");
         UserAccount baggageHandlerUA = baggageServices.getUserAccountDirectory().createUserAccount("baggageHandler", "baggageHandler", baggageHandlerEmployee, new BaggageHandlerRole());
                 
+        DataGenerator.generate(system);
+
         return system;
     }
     
