@@ -63,6 +63,14 @@
               <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnManageUsers" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnManageOrganizations" alignment="0" min="-2" pref="187" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="426" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -70,6 +78,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+              <Component id="btnManageOrganizations" min="-2" pref="47" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnManageUsers" min="-2" pref="47" max="-2" attributes="0"/>
+              <EmptySpace pref="592" max="32767" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="scrollPane" min="-2" pref="190" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
@@ -230,6 +243,22 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtAge">
+    </Component>
+    <Component class="javax.swing.JButton" name="btnManageOrganizations">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Manage Organizations"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageOrganizationsActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnManageUsers">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Manage Users"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageUsersActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
