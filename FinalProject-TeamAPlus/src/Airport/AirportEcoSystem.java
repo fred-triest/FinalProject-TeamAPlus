@@ -51,7 +51,7 @@ public class AirportEcoSystem extends Organization{
     // Instantiates the AirportEcoSystem and networkList without a parent
     private AirportEcoSystem() {
         
-        super(null);
+        super(null, null);
         networkList = new ArrayList<Network>();
     }
     

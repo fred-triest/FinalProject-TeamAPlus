@@ -20,8 +20,8 @@ import ui.Reports.SystemReportsJPanel;
  */
 public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
-    JPanel container;
-    AirportEcoSystem system;
+    private JPanel container;
+    private AirportEcoSystem system;
     /**
      * Creates new form SystemAdminWorkAreaJPanel
      */
@@ -95,6 +95,11 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnManageEnterpriseAdmins.setText("Manage Enterprise Admins");
+        btnManageEnterpriseAdmins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageEnterpriseAdminsActionPerformed(evt);
+            }
+        });
 
         btnReports.setText("System Reports");
         btnReports.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +151,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         container.add("manageEnterpriseJPanel", manageEnterpriseJPanel);
         
         CardLayout layout = (CardLayout) container.getLayout();
-        layout.next(container);
+        layout.show(container, "manageEnterpriseJPanel");
 
     }//GEN-LAST:event_btnManageEnterprisesActionPerformed
 

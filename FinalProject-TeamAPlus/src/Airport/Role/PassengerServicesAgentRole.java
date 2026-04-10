@@ -15,6 +15,12 @@ import ui.PassengerServicesAgent.PassengerServicesAgentWorkAreaJPanel;
  * @author fredtriest
  */
 public class PassengerServicesAgentRole extends Role {
+    
+    public PassengerServicesAgentRole(Organization organization) {
+        
+        super(RoleType.PassengerServicesAgent, organization);
+        
+    }
 
     // Pass all parameters so we know logged in user, the org they belong to, etc.
     @Override
@@ -25,6 +31,13 @@ public class PassengerServicesAgentRole extends Role {
             AirportEcoSystem airport) {
             
             return new PassengerServicesAgentWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise, airport);    
+    }
+    
+    // Display for panel
+    public String toString() {
+        
+        return "Passenger Services Agent";
+        
     }
             
 }

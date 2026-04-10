@@ -15,6 +15,11 @@ import ui.SafetyInspector.SafetyInspectorWorkAreaJPanel;
  * @author fredtriest
  */
 public class SafetyInspectorRole extends Role {
+    
+    public SafetyInspectorRole(Organization organization) {
+        
+        super(RoleType.SafetyInspector, organization);
+    }
 
     // Pass all parameters so we know logged in user, the org they belong to, etc.
     @Override
@@ -25,6 +30,13 @@ public class SafetyInspectorRole extends Role {
             AirportEcoSystem airport) {
             
             return new SafetyInspectorWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise, airport);    
+    }
+    
+    // Display for panel
+    @Override
+    public String toString() {
+        
+        return "Safety Inspector";
     }
             
 }

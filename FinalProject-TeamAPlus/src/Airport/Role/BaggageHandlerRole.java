@@ -15,6 +15,12 @@ import ui.BaggageHandler.BaggageHandlerWorkAreaJPanel;
  * @author fredtriest
  */
 public class BaggageHandlerRole extends Role {
+    
+    public BaggageHandlerRole(Organization organization) {
+        
+        super(RoleType.BaggageHandler, organization);
+        
+    }
 
     // Pass all parameters so we know logged in user, the org they belong to, etc.
     @Override
@@ -25,6 +31,13 @@ public class BaggageHandlerRole extends Role {
             AirportEcoSystem airport) {
             
             return new BaggageHandlerWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise, airport);    
+    }
+    
+    // Display for panel
+    public String toString() {
+        
+        return "Baggage Handler";
+        
     }
             
 }

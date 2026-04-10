@@ -20,12 +20,7 @@ public class EmployeeDirectory {
         // Instantiate an employeeList
         employeeList = new ArrayList<Employee>();
     }
-    
-    // Add an Employee to the employeeList
-    public void addEmployee(Employee employee) {
-        
-        employeeList.add(employee);
-    }
+   
     
     // Get the employeeList
     public ArrayList<Employee> getEmployeeList() {
@@ -45,10 +40,8 @@ public class EmployeeDirectory {
     }
     
     // Creates an employee
-    public Employee createEmployee(String name, String email){
-        Employee employee = new Employee();
-        employee.setName(name);
-        employee.setEmail(email);
+    public Employee createEmployee(String name, String email, String phone, String title, int age){
+        Employee employee = new Employee(name, email, phone, title, age);
         employeeList.add(employee);
         return employee;
     } 

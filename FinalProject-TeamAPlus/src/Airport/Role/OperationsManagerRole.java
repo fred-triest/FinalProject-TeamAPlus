@@ -15,6 +15,12 @@ import ui.OperationsManager.OperationsManagerWorkAreaJPanel;
  * @author fredtriest
  */
 public class OperationsManagerRole extends Role {
+    
+    public OperationsManagerRole(Organization organization) {
+        
+        super(RoleType.OperationsManager, organization);
+        
+    }
 
     // Pass all parameters so we know logged in user, the org they belong to, etc.
     @Override
@@ -25,6 +31,14 @@ public class OperationsManagerRole extends Role {
             AirportEcoSystem airport) {
             
             return new OperationsManagerWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise, airport);    
+    }
+    
+    // Display for panel
+    @Override
+    public String toString() {
+        
+        return "Operations Manager";
+        
     }
             
 }

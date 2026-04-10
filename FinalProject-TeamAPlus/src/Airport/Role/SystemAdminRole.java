@@ -15,9 +15,17 @@ import ui.SystemAdmin.SystemAdminWorkAreaJPanel;
  *
  * @author fredtriest
  */
+// Since this extends Role, it inherits roleType and organization fields and we implement createWorkArea()
 public class SystemAdminRole extends Role {
     
-    // Pass all parameters so we know logged in user, the org they belong to, etc.
+    // super() satisfies Role's required parameters
+    public SystemAdminRole() {
+        
+        super(null, null);
+        
+    }
+    
+    // Implement abstract method from Role and returns work area panel for this role
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer,
             UserAccount userAccount,
@@ -26,6 +34,13 @@ public class SystemAdminRole extends Role {
             AirportEcoSystem airport) {
             
             return new SystemAdminWorkAreaJPanel(userProcessContainer, airport);
+    }
+    
+    // displays role
+    @Override
+    public String toString() {
+        
+        return "System Admin";
     }
             
 }

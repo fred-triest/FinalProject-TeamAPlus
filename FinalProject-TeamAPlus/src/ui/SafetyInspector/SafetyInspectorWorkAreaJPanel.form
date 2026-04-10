@@ -16,62 +16,320 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="1200" max="32767" attributes="0"/>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblTitle" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="scrollPane" alignment="0" pref="1100" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblProcessPermit" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblPermitStatus" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblComplianceNotes" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblConditions" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblDenialReason" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cmbPermitStatus" pref="250" max="32767" attributes="0"/>
+                                  <Component id="txtComplianceNotes" pref="250" max="32767" attributes="0"/>
+                                  <Component id="txtConditions" pref="250" max="32767" attributes="0"/>
+                                  <Component id="txtDenialReason" pref="250" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="btnProcessPermit" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblIncidentReport" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblIncidentType" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblLocation" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblDateTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblSeverity" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblInvolvedParties" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblIncidentDescription" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cmbIncidentType" pref="200" max="32767" attributes="0"/>
+                                  <Component id="txtLocation" pref="200" max="32767" attributes="0"/>
+                                  <Component id="txtDateTime" pref="200" max="32767" attributes="0"/>
+                                  <Component id="cmbSeverity" pref="200" max="32767" attributes="0"/>
+                                  <Component id="txtInvolvedParties" pref="200" max="32767" attributes="0"/>
+                                  <Component id="txtIncidentDescription" pref="200" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="btnFileIncident" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="btnRefresh" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="846" max="32767" attributes="0"/>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="scrollPane" min="-2" pref="150" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="lblProcessPermit" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblPermitStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbPermitStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblComplianceNotes" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtComplianceNotes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblConditions" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtConditions" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblDenialReason" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDenialReason" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="btnProcessPermit" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="lblIncidentReport" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblIncidentType" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbIncidentType" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblLocation" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtLocation" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblDateTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDateTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblSeverity" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbSeverity" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblInvolvedParties" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtInvolvedParties" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblIncidentDescription" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtIncidentDescription" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="btnFileIncident" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="btnRefresh" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Component class="javax.swing.JLabel" name="lblTitle">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Helvetica Neue" size="36" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Safety Inspector Work Area"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="scrollPane">
 
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="357" max="-2" attributes="0"/>
-                  <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="380" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="765" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblTitle">
+        <Component class="javax.swing.JTable" name="tblRequests">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Helvetica Neue" size="36" style="0"/>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="4" rowCount="4">
+                <Column editable="true" title="ID" type="java.lang.Object"/>
+                <Column editable="true" title="Type" type="java.lang.Object"/>
+                <Column editable="true" title="Description" type="java.lang.Object"/>
+                <Column editable="true" title="Status" type="java.lang.Object"/>
+              </Table>
             </Property>
-            <Property name="text" type="java.lang.String" value="Safety Inspector Work Area "/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="lblProcessPermit">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Helvetica Neue" size="14" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Process Permit Request"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblPermitStatus">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Status:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbPermitStatus">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Under Review"/>
+            <StringItem index="1" value="Approved"/>
+            <StringItem index="2" value="Conditionally Approved"/>
+            <StringItem index="3" value="Denied"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblComplianceNotes">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Compliance Notes:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtComplianceNotes">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblConditions">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Conditions:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtConditions">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblDenialReason">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Denial Reason:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtDenialReason">
+    </Component>
+    <Component class="javax.swing.JButton" name="btnProcessPermit">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Process Permit"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcessPermitActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblIncidentReport">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Helvetica Neue" size="14" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="File Incident Report"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblIncidentType">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Incident Type:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbIncidentType">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Ramp Collision"/>
+            <StringItem index="1" value="FOD"/>
+            <StringItem index="2" value="Spill"/>
+            <StringItem index="3" value="Runway Incursion"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblLocation">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Location:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtLocation">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblDateTime">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Date/Time:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtDateTime">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblSeverity">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Severity:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbSeverity">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Low"/>
+            <StringItem index="1" value="Medium"/>
+            <StringItem index="2" value="High"/>
+            <StringItem index="3" value="Critical"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblInvolvedParties">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Involved Parties:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtInvolvedParties">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblIncidentDescription">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Description:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtIncidentDescription">
+    </Component>
+    <Component class="javax.swing.JButton" name="btnFileIncident">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="File Incident"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFileIncidentActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRefresh">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Refresh"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
