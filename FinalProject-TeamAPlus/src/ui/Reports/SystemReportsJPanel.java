@@ -100,6 +100,11 @@ public class SystemReportsJPanel extends javax.swing.JPanel {
         lblTitle.setText("System Reports");
 
         reportSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        reportSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportSelectorActionPerformed(evt);
+            }
+        });
 
         reportTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,6 +127,11 @@ public class SystemReportsJPanel extends javax.swing.JPanel {
         });
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -163,7 +173,26 @@ public class SystemReportsJPanel extends javax.swing.JPanel {
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
+        
+        populateTable();
+
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void reportSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportSelectorActionPerformed
+        // TODO add your handling code here
+        
+        populateTable();
+
+    }//GEN-LAST:event_reportSelectorActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        
+        container.remove(this);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.previous(container);
+        
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
