@@ -12,6 +12,7 @@ import java.awt.CardLayout;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.JPanel;
+import ui.Reports.SystemReportsJPanel;
 
 /**
  *
@@ -79,6 +80,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         airportEcoSystemJTree = new javax.swing.JTree();
         btnManageEnterprises = new javax.swing.JButton();
         btnManageEnterpriseAdmins = new javax.swing.JButton();
+        btnReports = new javax.swing.JButton();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
         lblTitle.setText("System Admin Work Area ");
@@ -93,6 +95,13 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnManageEnterpriseAdmins.setText("Manage Enterprise Admins");
+
+        btnReports.setText("System Reports");
+        btnReports.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -109,7 +118,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnManageEnterpriseAdmins, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnManageEnterprises, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnManageEnterprises, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnReports, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(314, 314, 314))
         );
         layout.setVerticalGroup(
@@ -123,7 +133,9 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnManageEnterprises, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnManageEnterpriseAdmins, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnManageEnterpriseAdmins, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnReports, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(153, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -138,11 +150,22 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnManageEnterprisesActionPerformed
 
+    private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
+        // TODO add your handling code here:
+        
+        SystemReportsJPanel reportsPanel = new SystemReportsJPanel(container, system);
+        container.add("systemReportsJPanel", reportsPanel);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.show(container, "systemReportsJPanel");
+        
+    }//GEN-LAST:event_btnReportsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree airportEcoSystemJTree;
     private javax.swing.JButton btnManageEnterpriseAdmins;
     private javax.swing.JButton btnManageEnterprises;
+    private javax.swing.JButton btnReports;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables

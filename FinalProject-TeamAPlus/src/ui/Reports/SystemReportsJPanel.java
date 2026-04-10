@@ -25,7 +25,7 @@ public class SystemReportsJPanel extends javax.swing.JPanel {
     /**
      * Creates new form SystemReportsJPanel
      */
-    public SystemReportsJPanel() {
+    public SystemReportsJPanel(JPanel container, AirportEcoSystem system) {
         initComponents();
         
         this.container = container;
@@ -99,7 +99,7 @@ public class SystemReportsJPanel extends javax.swing.JPanel {
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
         lblTitle.setText("System Reports");
 
-        reportSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        reportSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Report A - Employees per Organization", "Report B - Work Requests by Status" }));
         reportSelector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reportSelectorActionPerformed(evt);
