@@ -41,7 +41,7 @@ public class DataGenerator {
 
             Employee emp = baggageUnit.getEmployeeDirectory().createEmployee(name, email, faker.phoneNumber().cellPhone(), "Baggage Handler", faker.number().numberBetween(22, 60));
                         
-            baggageUnit.getUserAccountDirectory().createUserAccount("baggage" + i, "password", emp, new BaggageHandlerRole(baggageUnit));
+            baggageUnit.getUserAccountDirectory().createUserAccount("baggage" + i, "baggageHandler1&", emp, new BaggageHandlerRole(baggageUnit));
         }
 
         // Add 10 fake Flight Schedulers to FlightOperationsDivision
@@ -53,7 +53,7 @@ public class DataGenerator {
 
             Employee emp = flightOps.getEmployeeDirectory().createEmployee(name, email, faker.phoneNumber().cellPhone(), "Flight Scheduler", faker.number().numberBetween(22, 60));
 
-            flightOps.getUserAccountDirectory().createUserAccount("scheduler" + i, "password", emp, new FlightSchedulerRole(flightOps));
+            flightOps.getUserAccountDirectory().createUserAccount("scheduler" + i, "flightScheduler1&", emp, new FlightSchedulerRole(flightOps));
             
            
         }

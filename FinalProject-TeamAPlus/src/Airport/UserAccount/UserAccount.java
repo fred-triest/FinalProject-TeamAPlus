@@ -6,6 +6,7 @@ package Airport.UserAccount;
 
 import Airport.Employee.Employee;
 import Airport.Role.Role;
+import java.security.MessageDigest;
 
 /**
  *
@@ -24,12 +25,69 @@ public class UserAccount {
     public UserAccount(String username, String password, Employee employee, Role role) {
         
         this.username = username;
-        this.password = password;
         this.employee = employee;
         this.role = role;
         // Instantiate userAccountId based on format
         userAccountId = "UAID-" + String.format("%05d", counter);
         ++counter;
+        setPassword(password);
+        
+    }
+    
+    private String hashPassword(String password) {
+        
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            StringBuilder hexString = new StringBuilder();
+            byte[] hash = md.digest(password.getBytes());
+            for (byte b : hash) {
+                String hex = String.format("%02x", b);
+                hexString.append(hex);
+            } 
+            return hexString.toString();   
+        } catch (Exception e) {
+            return password;
+        }
+    }
+    
+    private boolean passwordRequirementsMet(String password) {
+        
+        if (password.length() < 8) {
+            
+            return false;
+            
+        }
+        
+        boolean upperCase = false;
+        boolean digit = false;
+        boolean specialCharacter = false;
+        
+        for (int i = 0; i < password.length(); i++) {
+            
+            char ch = password.charAt(i);
+            
+            if (Character.isUpperCase(ch)) {
+                
+                upperCase = true;
+                
+            }
+            
+            if (Character.isDigit(ch)) {
+                
+                digit = true;
+                
+            }
+            
+            if (!Character.isLetter(ch) && !Character.isDigit(ch)) {
+                
+                specialCharacter = true;
+                
+            }
+                        
+        }
+        
+        return upperCase && digit && specialCharacter;
+
     }
     
     public String getUsername() {
@@ -42,9 +100,17 @@ public class UserAccount {
         this.username = username;
     }
     
-    public void setPassword(String password) {
+    public boolean setPassword(String password) {
         
-        this.password = password;
+        if (!passwordRequirementsMet(password)) {
+            
+            return false;
+            
+        }
+        
+        this.password = hashPassword(password);
+        return true;
+        
     }
     
     public Employee getEmployee() {
@@ -76,7 +142,12 @@ public class UserAccount {
     // Checks if username and pw match
     public boolean validateUser(String username, String password) {
         
-        return this.username.equals(username) && this.password.equals(password);
+        if (this.password == null) {
+            
+            return false;
+            
+        }
+        return this.username.equals(username) && this.password.equals(hashPassword(password));
     }
      
     // Use toString() because the default value is not useful so we return name instead
