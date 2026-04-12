@@ -36,11 +36,9 @@ public class DataGenerator {
             String name = faker.name().fullName();
             String email = faker.internet().emailAddress();
 
-            Employee emp = baggageUnit.getEmployeeDirectory().createEmployee(name, email);
-            
-            System.out.println("Baggage Handler created: " + name + " | " + email);
-            
-            baggageUnit.getUserAccountDirectory().createUserAccount("baggage" + i, "password", emp, new BaggageHandlerRole());
+            Employee emp = baggageUnit.getEmployeeDirectory().createEmployee(name, email, faker.phoneNumber().cellPhone(), "Baggage Handler", faker.number().numberBetween(22, 60));
+                        
+            baggageUnit.getUserAccountDirectory().createUserAccount("baggage" + i, "password", emp, new BaggageHandlerRole(baggageUnit));
         }
 
         // Add 10 fake Flight Schedulers to FlightOperationsDivision
@@ -50,11 +48,9 @@ public class DataGenerator {
             String name = faker.name().fullName();
             String email = faker.internet().emailAddress();
 
-            Employee emp = flightOps.getEmployeeDirectory().createEmployee(name, email);
-            
-            System.out.println("Flight Scheduler created: " + name + " | " + email);  // ADD THIS
-            
-            flightOps.getUserAccountDirectory().createUserAccount("scheduler" + i, "password", emp, new FlightSchedulerRole());
+            Employee emp = flightOps.getEmployeeDirectory().createEmployee(name, email, faker.phoneNumber().cellPhone(), "Flight Scheduler", faker.number().numberBetween(22, 60));
+
+            flightOps.getUserAccountDirectory().createUserAccount("scheduler" + i, "password", emp, new FlightSchedulerRole(flightOps));
         }
     }
 }
