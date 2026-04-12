@@ -9,6 +9,9 @@ import Airport.Enterprise.Enterprise;
 import Airport.Network.Network;
 import Airport.Organization.BaggageCabinServicesUnit;
 import Airport.Organization.FlightOperationsDivision;
+import Airport.WorkQueue.GroundHandlingRequest;
+import Airport.Organization.RampRefuelingUnit;
+import Airport.WorkQueue.BaggageIrregularityReport;
 import Airport.Role.BaggageHandlerRole;
 import Airport.Role.FlightSchedulerRole;
 import com.github.javafaker.Faker;
@@ -51,6 +54,34 @@ public class DataGenerator {
             Employee emp = flightOps.getEmployeeDirectory().createEmployee(name, email, faker.phoneNumber().cellPhone(), "Flight Scheduler", faker.number().numberBetween(22, 60));
 
             flightOps.getUserAccountDirectory().createUserAccount("scheduler" + i, "password", emp, new FlightSchedulerRole(flightOps));
+            
+           
+        }
+        
+        // Add fake work requests to org work queues for Report B
+        BaggageCabinServicesUnit baggageUnit2 = (BaggageCabinServicesUnit) groundMasterServices.getOrganizationDirectory().findOrganization("Baggage Cabin Services Unit");
+        RampRefuelingUnit rampUnit = (RampRefuelingUnit) groundMasterServices.getOrganizationDirectory().findOrganization("Ramp Refueling Unit");
+        FlightOperationsDivision flightOps2 = (FlightOperationsDivision) japanAirlines.getOrganizationDirectory().findOrganization("Flight Operations Division");
+
+        for (int i = 0; i < 5; i++) {
+            BaggageIrregularityReport bir = new BaggageIrregularityReport(
+                "Lost", "TAG-" + faker.number().digits(6),
+                "JL" + faker.number().numberBetween(100, 999),
+                faker.name().fullName(), "Terminal 1",
+                baggageUnit2, rampUnit, "Baggage Handler"
+            );
+            baggageUnit2.getWorkQueue().addWorkRequest(bir);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            GroundHandlingRequest ghr = new GroundHandlingRequest(
+                "JL" + faker.number().numberBetween(100, 999),
+                "Gate " + faker.number().numberBetween(1, 30),
+                "Boeing 787",
+                true, true, false,
+                rampUnit, flightOps2, "Ramp Supervisor"
+            );
+            rampUnit.getWorkQueue().addWorkRequest(ghr);
         }
     }
 }
