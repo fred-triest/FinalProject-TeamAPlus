@@ -146,7 +146,7 @@ public class OperationsManagerWorkAreaJPanel extends javax.swing.JPanel {
 
         lblDisruptionAction.setText("Disruption Status:");
 
-        cmbDisruptionStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Under Review", "Authorized", "Denied" }));
+        cmbDisruptionStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Under Review", "Authorized", "Denied", "Resolved" }));
 
         lblAuthNotes.setText("Authorization Notes:");
 

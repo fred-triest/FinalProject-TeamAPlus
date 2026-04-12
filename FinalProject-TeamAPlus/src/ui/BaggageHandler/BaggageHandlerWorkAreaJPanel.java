@@ -6,9 +6,14 @@ package ui.BaggageHandler;
 
 import Airport.AirportEcoSystem;
 import Airport.Enterprise.Enterprise;
+import Airport.Network.Network;
 import Airport.Organization.Organization;
 import Airport.UserAccount.UserAccount;
+import Airport.WorkQueue.BaggageIrregularityReport;
+import Airport.WorkQueue.WorkRequest;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,6 +36,39 @@ public class BaggageHandlerWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.airport = airport;
+        populateTable();
+    }
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblRequests.getModel();
+        model.setRowCount(0);
+
+        for (WorkRequest request : organization.getWorkQueue().getWorkQueue()) {
+            if (request instanceof BaggageIrregularityReport) {
+                BaggageIrregularityReport br = (BaggageIrregularityReport) request;
+                Object[] row = new Object[6];
+                row[0] = br.getWorkRequestId();
+                row[1] = br.getIrregularityType();
+                row[2] = br.getBaggageTagId();
+                row[3] = br.getFlightNumber();
+                row[4] = br.getPassengerName();
+                row[5] = br.getStatus();
+                model.addRow(row);
+            }
+        }
+    }
+
+    private Organization findReceiverOrg() {
+        for (Network network : airport.getNetworkList()) {
+            for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
+                for (Organization org : ent.getOrganizationDirectory().getOrganizationList()) {
+                    if (org.getName().equals("Airline Operations Center")) {
+                        return org;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -42,54 +80,183 @@ public class BaggageHandlerWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        tblRequests = new javax.swing.JTable();
+        lblType = new javax.swing.JLabel();
+        cmbType = new javax.swing.JComboBox<>();
+        lblTagId = new javax.swing.JLabel();
+        txtTagId = new javax.swing.JTextField();
+        lblFlight = new javax.swing.JLabel();
+        txtFlight = new javax.swing.JTextField();
+        lblPassenger = new javax.swing.JLabel();
+        txtPassenger = new javax.swing.JTextField();
+        lblLocation = new javax.swing.JLabel();
+        txtLocation = new javax.swing.JTextField();
+        btnSubmit = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        lblTitle.setText("Baggage Handler Work Area ");
+        lblTitle.setText("Baggage Handler Work Area");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(357, 357, 357)
-                .addComponent(lblTitle)
-                .addContainerGap(380, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(lblTitle)
-                .addContainerGap(765, Short.MAX_VALUE))
-        );
+        tblRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Type", "Tag ID", "Flight #", "Passenger", "Status"
+            }
+        ));
+        scrollPane.setViewportView(tblRequests);
+
+        lblType.setText("Irregularity Type:");
+
+        cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lost", "Damaged", "Delayed", "Misrouted" }));
+
+        lblTagId.setText("Baggage Tag ID:");
+
+        lblFlight.setText("Flight #:");
+
+        lblPassenger.setText("Passenger Name:");
+
+        lblLocation.setText("Last Known Location:");
+
+        btnSubmit.setText("File Report");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1205, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblType)
+                            .addComponent(lblTagId)
+                            .addComponent(lblFlight)
+                            .addComponent(lblPassenger)
+                            .addComponent(lblLocation))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtTagId)
+                            .addComponent(txtFlight)
+                            .addComponent(txtPassenger)
+                            .addComponent(txtLocation)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSubmit)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRefresh)))
+                .addContainerGap(432, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(205, 205, 205)
+                .addComponent(lblTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 846, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(lblTitle)
+                .addGap(18, 18, 18)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblType)
+                    .addComponent(cmbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTagId)
+                    .addComponent(txtTagId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFlight)
+                    .addComponent(txtFlight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPassenger)
+                    .addComponent(txtPassenger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLocation)
+                    .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSubmit)
+                    .addComponent(btnRefresh))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        String tagId = txtTagId.getText().trim();
+        String flight = txtFlight.getText().trim();
+        String passenger = txtPassenger.getText().trim();
+        String location = txtLocation.getText().trim();
+
+        if (tagId.isEmpty() || flight.isEmpty() || passenger.isEmpty() || location.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter information in all fields", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String type = (String) cmbType.getSelectedItem();
+        Organization receiverOrg = findReceiverOrg();
+
+        BaggageIrregularityReport report = new BaggageIrregularityReport(
+            type, tagId, flight, passenger, location,
+            organization, receiverOrg, account.getEmployee().getName());
+
+        organization.getWorkQueue().addWorkRequest(report);
+        if (receiverOrg != null) {
+            receiverOrg.getWorkQueue().addWorkRequest(report);
+        }
+
+        JOptionPane.showMessageDialog(null, "Baggage irregularity report filed!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        populateTable();
+        txtTagId.setText("");
+        txtFlight.setText("");
+        txtPassenger.setText("");
+        txtLocation.setText("");
+        cmbType.setSelectedIndex(0);
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        populateTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnSubmit;
+    private javax.swing.JComboBox<String> cmbType;
+    private javax.swing.JLabel lblFlight;
+    private javax.swing.JLabel lblLocation;
+    private javax.swing.JLabel lblPassenger;
+    private javax.swing.JLabel lblTagId;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblType;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable tblRequests;
+    private javax.swing.JTextField txtFlight;
+    private javax.swing.JTextField txtLocation;
+    private javax.swing.JTextField txtPassenger;
+    private javax.swing.JTextField txtTagId;
     // End of variables declaration//GEN-END:variables
 }
