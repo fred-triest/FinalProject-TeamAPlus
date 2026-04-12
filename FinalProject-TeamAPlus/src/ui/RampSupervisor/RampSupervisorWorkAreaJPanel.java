@@ -8,7 +8,11 @@ import Airport.AirportEcoSystem;
 import Airport.Enterprise.Enterprise;
 import Airport.Organization.Organization;
 import Airport.UserAccount.UserAccount;
+import Airport.WorkQueue.GroundHandlingRequest;
+import Airport.WorkQueue.WorkRequest;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,6 +35,28 @@ public class RampSupervisorWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.airport = airport;
+        populateTable();
+    }
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblRequests.getModel();
+        model.setRowCount(0);
+
+        for (WorkRequest request : organization.getWorkQueue().getWorkQueue()) {
+            if (request instanceof GroundHandlingRequest) {
+                GroundHandlingRequest gr = (GroundHandlingRequest) request;
+                Object[] row = new Object[8];
+                row[0] = gr.getWorkRequestId();
+                row[1] = gr.getFlightNumber();
+                row[2] = gr.getGateNumber();
+                row[3] = gr.getAircraftType();
+                row[4] = gr.isRefuelingRequired() ? "Yes" : "No";
+                row[5] = gr.isCleaningRequired() ? "Yes" : "No";
+                row[6] = gr.isCateringRequired() ? "Yes" : "No";
+                row[7] = gr.getStatus();
+                model.addRow(row);
+            }
+        }
     }
 
     /**
@@ -42,54 +68,177 @@ public class RampSupervisorWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        tblRequests = new javax.swing.JTable();
+        lblCrewAssignment = new javax.swing.JLabel();
+        txtCrewAssignment = new javax.swing.JTextField();
+        lblEstCompletion = new javax.swing.JLabel();
+        txtEstCompletion = new javax.swing.JTextField();
+        lblNotes = new javax.swing.JLabel();
+        txtNotes = new javax.swing.JTextField();
+        lblStatus = new javax.swing.JLabel();
+        cmbStatus = new javax.swing.JComboBox<>();
+        btnUpdateStatus = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        lblTitle.setText("Ramp Supervisor Work Area ");
+        lblTitle.setText("Ramp Supervisor Work Area");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(357, 357, 357)
-                .addComponent(lblTitle)
-                .addContainerGap(380, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(lblTitle)
-                .addContainerGap(765, Short.MAX_VALUE))
-        );
+        tblRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Flight #", "Gate", "Aircraft", "Refuel?", "Clean?", "Cater?", "Status"
+            }
+        ));
+        scrollPane.setViewportView(tblRequests);
+
+        lblCrewAssignment.setText("Crew Assignment:");
+
+        lblEstCompletion.setText("Est. Completion:");
+
+        lblNotes.setText("Notes:");
+
+        lblStatus.setText("Status:");
+
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crew Assigned", "In Progress", "Completed" }));
+
+        btnUpdateStatus.setText("Update Status");
+        btnUpdateStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateStatusActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1203, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCrewAssignment)
+                            .addComponent(lblEstCompletion)
+                            .addComponent(lblNotes)
+                            .addComponent(lblStatus))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCrewAssignment)
+                            .addComponent(txtEstCompletion)
+                            .addComponent(txtNotes)
+                            .addComponent(cmbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnUpdateStatus)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRefresh)))
+                .addContainerGap(432, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(189, 189, 189)
+                .addComponent(lblTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 846, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(lblTitle)
+                .addGap(18, 18, 18)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCrewAssignment)
+                    .addComponent(txtCrewAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEstCompletion)
+                    .addComponent(txtEstCompletion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNotes)
+                    .addComponent(txtNotes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStatus)
+                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdateStatus)
+                    .addComponent(btnRefresh))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnUpdateStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateStatusActionPerformed
+        int selectedRow = tblRequests.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "You must select a request to update", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String requestId = (String) tblRequests.getValueAt(selectedRow, 0);
+
+        WorkRequest workRequest = organization.getWorkQueue().getWorkRequest(requestId);
+        if (!(workRequest instanceof GroundHandlingRequest)) {
+            JOptionPane.showMessageDialog(null, "Not a ground handling request", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        GroundHandlingRequest gr = (GroundHandlingRequest) workRequest;
+        String selectedStatus = (String) cmbStatus.getSelectedItem();
+
+        if (!gr.canTransitionTo(selectedStatus)) {
+            JOptionPane.showMessageDialog(null, "Cannot transition to that status from current state", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        gr.setStatus(selectedStatus);
+        gr.setCrewAssignment(txtCrewAssignment.getText());
+        gr.setEstimatedCompletionTime(txtEstCompletion.getText());
+        gr.setNotes(txtNotes.getText());
+        gr.setReceiverName(account.getEmployee().getName());
+
+        JOptionPane.showMessageDialog(null, "Ground handling request has been updated", "Success", JOptionPane.INFORMATION_MESSAGE);
+        populateTable();
+        txtCrewAssignment.setText("");
+        txtEstCompletion.setText("");
+        txtNotes.setText("");
+        cmbStatus.setSelectedIndex(0);
+    }//GEN-LAST:event_btnUpdateStatusActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        populateTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnUpdateStatus;
+    private javax.swing.JComboBox<String> cmbStatus;
+    private javax.swing.JLabel lblCrewAssignment;
+    private javax.swing.JLabel lblEstCompletion;
+    private javax.swing.JLabel lblNotes;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable tblRequests;
+    private javax.swing.JTextField txtCrewAssignment;
+    private javax.swing.JTextField txtEstCompletion;
+    private javax.swing.JTextField txtNotes;
     // End of variables declaration//GEN-END:variables
 }
