@@ -167,8 +167,11 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
 
     private void btnManageEnterpriseAdminsActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO: implement manage enterprise admins
-    }  
+        ManageEnterpriseAdminJPanel manageEnterpriseAdminJPanel = new ManageEnterpriseAdminJPanel(container, system);
+        container.add("manageEnterpriseAdminJPanel", manageEnterpriseAdminJPanel);
+        
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.show(container, "manageEnterpriseAdminJPanel");    }  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree airportEcoSystemJTree;

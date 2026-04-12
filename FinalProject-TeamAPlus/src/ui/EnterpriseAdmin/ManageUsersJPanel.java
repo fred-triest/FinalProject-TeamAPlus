@@ -142,17 +142,17 @@ public class ManageUsersJPanel extends javax.swing.JPanel {
         scrollPane.setViewportView(tblUsers);
 
         cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbRole.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbRoleActionPerformed(evt);
-            }
-        });
 
         lblRole.setText("Role:");
 
         lblOrganization.setText("Organization:");
 
         cmbOrganization.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbOrganization.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbOrganizationActionPerformed(evt);
+            }
+        });
 
         lblName.setText("Name:");
 
@@ -488,10 +488,11 @@ public class ManageUsersJPanel extends javax.swing.JPanel {
         layout.show(container, "workArea");
     }//GEN-LAST:event_btnBacksActionPerformed
 
-    private void cmbRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRoleActionPerformed
+    private void cmbOrganizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOrganizationActionPerformed
         
         populateRoleComboBox();
-    }//GEN-LAST:event_cmbRoleActionPerformed
+        
+    }//GEN-LAST:event_cmbOrganizationActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
